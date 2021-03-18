@@ -14,4 +14,11 @@ class AssignmentTests {
 		assertEquals(assignmentUnderTest.name(), "Test Assignment");
 	}
 
+	
+	@Test
+	void testAssignmentTracksScore() {
+		Assignment assignmentUnderTest = new Assignment("Test Assignment");
+		assignmentUnderTest.setScore(89.9);
+		assertEquals(assignmentUnderTest.getScore(), 89.9);
+	}
 }
