@@ -13,12 +13,23 @@ class AssignmentTests {
 		Assignment assignmentUnderTest = new Assignment("Test Assignment");
 		assertEquals(assignmentUnderTest.name(), "Test Assignment");
 	}
-
 	
 	@Test
-	void testAssignmentTracksScore() {
+	void testAssignmentEquals() {
 		Assignment assignmentUnderTest = new Assignment("Test Assignment");
-		assignmentUnderTest.setScore(89.9);
-		assertEquals(assignmentUnderTest.getScore(), 89.9);
+		Assignment otherAssignmentUnderTest = new Assignment("Test Assignment");
+		boolean isEqual = assignmentUnderTest.equals(otherAssignmentUnderTest);
+		
+		assertTrue(isEqual);
 	}
+	
+	@Test
+	void testAssignmentNotEquals() {
+		Assignment assignmentUnderTest = new Assignment("Test Assignment");
+		Assignment otherAssignmentUnderTest = new Assignment("Other Assignment");
+		boolean isNotEqual = assignmentUnderTest.equals(otherAssignmentUnderTest);
+		
+		assertFalse(isNotEqual);
+	}
+
 }
