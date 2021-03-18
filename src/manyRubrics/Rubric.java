@@ -43,6 +43,9 @@ public class Rubric {
 	public double computeScore() {
 		double score = 0;
 		for(Assignment assignment : this.assignmentsToWeights.keySet()) {
+			
+			// line below with assignment.getScore() violates Law of Demeter. Should we create a 
+			// Student class that maps assignments to scores rather than having assignments hold scores?
 			double scoreContribution = assignment.getScore() * this.assignmentsToWeights.get(assignment) / this.maximumWeight;
 			score += scoreContribution;
 		}
