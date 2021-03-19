@@ -3,22 +3,34 @@ package manyRubrics;
 public class Assignment {
 
 	private String name;
-	private double score;
 	
 	public Assignment(String name) {
 		this.name = name;
-		this.score = 0;
+
 	}
 	
 	public String name() {
 		return this.name;
 	}
 
-	public double getScore() {
-		return score;
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Assignment other = (Assignment) obj;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
 	}
 
-	public void setScore(double score) {
-		this.score = score;
-	}
+
+
 }
