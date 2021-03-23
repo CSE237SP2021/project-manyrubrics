@@ -21,6 +21,20 @@ public class Rubric {
 		}
 	}
 	
+	public Rubric(Rubric other) {//Rubric copy = new Rubric(original);<- to call rubric copy constructor
+		this.assignmentsToWeights = new HashMap<Assignment, Integer>();
+
+		// most classes have a maximum score of 100, so the constructor that does not
+		// specify a different max score defaults
+		// to 100;
+		this.maximumWeight = other.maximumWeight;
+
+		for (Map.Entry<Assignment, Integer> assignment : other.assignmentsToWeights.entrySet()) {
+			this.assignmentsToWeights.put(assignment.getKey(), assignment.getValue()); 
+			
+		}
+	}
+	
 	public boolean isValid() {
 		int totalWeight = this.computeTotalWeight();
 		
