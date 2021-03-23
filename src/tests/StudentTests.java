@@ -20,7 +20,7 @@ class StudentTests {
 		assignments.add(secondAssignment);
 		
 		Student studentUnderTest = new Student("AName", assignments);
-		studentUnderTest.addScoreToAssignment(firstAssignment, 93.3);
+		studentUnderTest.setScoreToAssignment(firstAssignment, 93.3);
 		
 		double studentScore = studentUnderTest.getScoreForAssignment(firstAssignment);
 		

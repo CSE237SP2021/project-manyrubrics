@@ -59,8 +59,8 @@ class RubricTests {
 		assignments.add(secondAssignment);
 
 		Student student = new Student("Test Student", assignments);
-		student.addScoreToAssignment(firstAssignment, 100);
-		student.addScoreToAssignment(secondAssignment, 60);
+		student.setScoreToAssignment(firstAssignment, 100);
+		student.setScoreToAssignment(secondAssignment, 60);
 
 		Rubric rubricUnderTest = new Rubric(assignments);
 		rubricUnderTest.setAssignmentWeight(firstAssignment, 50);
@@ -82,8 +82,8 @@ class RubricTests {
 		assignments.add(secondAssignment);
 
 		Student student = new Student("Test Student", assignments);
-		student.addScoreToAssignment(firstAssignment, 100);
-		student.addScoreToAssignment(secondAssignment, 60);
+		student.setScoreToAssignment(firstAssignment, 100);
+		student.setScoreToAssignment(secondAssignment, 60);
 
 		Rubric rubricUnderTest = new Rubric(assignments);
 		rubricUnderTest.setAssignmentWeight(firstAssignment, 50);

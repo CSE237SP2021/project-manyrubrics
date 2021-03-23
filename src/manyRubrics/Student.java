@@ -18,12 +18,13 @@ public class Student {
 		}
 	}
 	
-	public void addScoreToAssignment(Assignment assignmentWithScore, double score) {
+	public void setScoreToAssignment(Assignment assignmentWithScore, double score) {
 		this.assigmentsToScores.replace(assignmentWithScore, score);
 	}
 	
 	public double getScoreForAssignment(Assignment assignmentToRetrieveScoreFor) {
 		return this.assigmentsToScores.get(assignmentToRetrieveScoreFor);
 	}
+	
 
 }
