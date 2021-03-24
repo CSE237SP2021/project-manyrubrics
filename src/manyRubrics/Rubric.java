@@ -70,10 +70,14 @@ public class Rubric {
 		this.assignmentsToWeights.replace(assignment, weight);
 	}
 	
+	public void addAssignment(Assignment assignment, int weight) {
+		this.assignmentsToWeights.put(assignment, weight);
+	}
 	
+	public void removeAssignment(Assignment assignment) {
+		this.assignmentsToWeights.remove(assignment);
+	}
 	
-	//add assignments 
-	//remove assignments 
 	
 
 }

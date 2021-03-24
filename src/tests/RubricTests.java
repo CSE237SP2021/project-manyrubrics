@@ -96,5 +96,74 @@ class RubricTests {
 		assertEquals(80.0, score);
 		
 	}
+	
+	@Test 
+	void TestAddAssignment() {
+		ArrayList<Assignment> rubricAssignments = new ArrayList<Assignment>();
+		ArrayList<Assignment> studentAssignments = new ArrayList<Assignment>();
+		Assignment firstAssignment = new Assignment("first");
+		Assignment secondAssignment = new Assignment("second");
+		Assignment ThirdAssignment = new Assignment("third");
+		
+		rubricAssignments.add(firstAssignment);
+		rubricAssignments.add(secondAssignment);
+		studentAssignments.add(firstAssignment);
+		studentAssignments.add(secondAssignment);
+		studentAssignments.add(ThirdAssignment);
+		
+		Student student = new Student("Test Student", studentAssignments);
+		student.setScoreToAssignment(firstAssignment, 100);
+		student.setScoreToAssignment(secondAssignment, 60);
+		student.setScoreToAssignment(ThirdAssignment, 75);
+
+		Rubric rubricUnderTest = new Rubric(rubricAssignments);
+		rubricUnderTest.setAssignmentWeight(firstAssignment, 50);
+		rubricUnderTest.setAssignmentWeight(secondAssignment, 25);
+		
+		
+		rubricUnderTest.addAssignment(ThirdAssignment, 25);
+		double score = rubricUnderTest.computeScoreForStudent(student);
+		
+
+		assertEquals(83.75, score);
+		
+		
+	}
+	
+	@Test 
+	void TestRemoveAssignment() {
+		ArrayList<Assignment> rubricAssignments = new ArrayList<Assignment>();
+		ArrayList<Assignment> studentAssignments = new ArrayList<Assignment>();
+		Assignment firstAssignment = new Assignment("first");
+		Assignment secondAssignment = new Assignment("second");
+		Assignment ThirdAssignment = new Assignment("third");
+		
+		rubricAssignments.add(firstAssignment);
+		rubricAssignments.add(secondAssignment);
+		rubricAssignments.add(ThirdAssignment);
+		studentAssignments.add(firstAssignment);
+		studentAssignments.add(secondAssignment);
+		studentAssignments.add(ThirdAssignment);
+		
+		Student student = new Student("Test Student", studentAssignments);
+		student.setScoreToAssignment(firstAssignment, 100);
+		student.setScoreToAssignment(secondAssignment, 60);
+		student.setScoreToAssignment(ThirdAssignment, 75);
+
+		Rubric rubricUnderTest = new Rubric(rubricAssignments);
+		rubricUnderTest.setAssignmentWeight(firstAssignment, 50);
+		rubricUnderTest.setAssignmentWeight(secondAssignment, 25);
+		rubricUnderTest.setAssignmentWeight(ThirdAssignment, 25);
+		
+		assertTrue(rubricUnderTest.isValid());
+		rubricUnderTest.removeAssignment(ThirdAssignment);
+		assertFalse(rubricUnderTest.isValid());
+		rubricUnderTest.setAssignmentWeight(secondAssignment, 50);
+		assertTrue(rubricUnderTest.isValid());
+		double score = rubricUnderTest.computeScoreForStudent(student);
+		
+
+		assertEquals(80, score);
+	}
 
 }
