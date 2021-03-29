@@ -4,21 +4,20 @@ By Angelica Harris, Brandon Li, Sam McGarey, and Zach McMillen
 
 Our project is a Java Command Line Application which allows teachers and students to automatically generate final grades for classes given a student's grades in each assignment. Our project allows teachers to have multiple rubrics for a class, and takes a student's best grade based on each of the rubrics.
 
-1. Completed Stories
-    A student should be able to keep track of their score on each assignment
-    A teacher should be able to copy a past rubric
-    A teacher should be able to edit a past rubric
-    Group rubrics togethe
-    Calculate max grade among grouped rubrics
+## Iteration 1
 
-2. Stories For Next Iteration
-    A teacher should be able to create new assignments
-    A teacher should be able to create multiple rubrics for 1 class
-    A teacher should be able to get a file with their students' grades
-    A teacher can produce grades for different classes
-    A student should be able to test what grade they will get in a class by putting in their scores
-    
-3. Implemented but Doesn't Work
-    User input through the commandline
-    
-4. Our project currently can not run
+### What user stories were completed this iteration?
+- A student should be able to keep track of their score on each assignment
+- A teacher should be able to copy a past rubric
+- A teacher should be able to edit a past rubric
+
+### What user stories do you intend to complete next iteration?
+- A teacher can produce grades for different classes
+- A student should be able to test what grade they will receive in a class by putting in their scores
+- A teacher should be able to get a file with their students' final grades
+
+### Is there anything that you implemented but doesn't currently work?
+- User input through the command line is partially implemented but doesn't full work yet
+
+### What commands are needed to compile and run your code from the command line?
+- Since our user input through the command line isn't fully functioning yet, our project can't currently run. We are looking to have this working by Iteration 2.
