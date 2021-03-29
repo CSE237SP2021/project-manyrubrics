@@ -20,4 +20,4 @@ Our project is a Java Command Line Application which allows teachers and student
 - User input through the command line is partially implemented but doesn't full work yet
 
 ### What commands are needed to compile and run your code from the command line?
-- Since our user input through the command line isn't fully functioning yet, our project can't currently run. We are looking to have this working by Iteration 2.
+- Since our user input through the command line isn't fully functioning yet, our project can't currently run. We are looking to have this working by Iteration 2. The best way to test our code is to run our unit tests.
