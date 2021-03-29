@@ -12,6 +12,9 @@ Our project is a Java Command Line Application which allows teachers and student
 - A teacher should be able to edit a past rubric
 
 ### What user stories do you intend to complete next iteration?
+- A teacher can produce grades for different classes
+- A student should be able to test what grade they will receive in a class by putting in their scores
+- A teacher should be able to get a file with their students' final grades
 
 ### Is there anything that you implemented but doesn't currently work?
 
