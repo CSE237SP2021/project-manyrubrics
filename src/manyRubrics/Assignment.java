@@ -3,16 +3,16 @@ package manyRubrics;
 public class Assignment {
 
 	private String name;
+	private int maxAssignmentGrade;
 	
-	public Assignment(String name) {
+	public Assignment(String name, int totalAssignmentGrade) {
 		this.name = name;
-
+		this.maxAssignmentGrade = totalAssignmentGrade;
 	}
 	
 	public String name() {
 		return this.name;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -30,7 +30,9 @@ public class Assignment {
 			return false;
 		return true;
 	}
-
-
-
+	
+	//Returns the max points the assignment can be out of
+	public int getMaxAssignmentGrade() {
+		return this.maxAssignmentGrade;
+	}
 }

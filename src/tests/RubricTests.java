@@ -15,8 +15,8 @@ class RubricTests {
 	@Test
 	void testValidRubric() {
 		ArrayList<Assignment> assignments = new ArrayList<Assignment>();
-		Assignment firstAssignment = new Assignment("first");
-		Assignment secondAssignment = new Assignment("second");
+		Assignment firstAssignment = new Assignment("first", 100);
+		Assignment secondAssignment = new Assignment("second", 100);
 		assignments.add(firstAssignment);
 		assignments.add(secondAssignment);
 
@@ -28,14 +28,13 @@ class RubricTests {
 		boolean isValid = rubricUnderTest.isValid();
 		
 		assertTrue(isValid);
-
 	}
 	
 	@Test
 	void testInvalidRubric() {
 		ArrayList<Assignment> assignments = new ArrayList<Assignment>();
-		Assignment firstAssignment = new Assignment("first");
-		Assignment secondAssignment = new Assignment("second");
+		Assignment firstAssignment = new Assignment("first", 100);
+		Assignment secondAssignment = new Assignment("second", 100);
 		assignments.add(firstAssignment);
 		assignments.add(secondAssignment);
 		
@@ -54,9 +53,9 @@ class RubricTests {
 	void testRubricComputeScores() {
 		ArrayList<Assignment> assignments = new ArrayList<Assignment>();
 		
-		Assignment firstAssignment = new Assignment("first");
+		Assignment firstAssignment = new Assignment("first", 100);
 		
-		Assignment secondAssignment = new Assignment("second");
+		Assignment secondAssignment = new Assignment("second", 100);
 		assignments.add(firstAssignment);
 		assignments.add(secondAssignment);
 		
@@ -74,5 +73,4 @@ class RubricTests {
 		assertEquals(80.0, score);
 
 	}
-
 }
