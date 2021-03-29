@@ -13,8 +13,8 @@ class StudentTests {
 
 	@Test
 	void testStudentGetScore() {
-		Assignment firstAssignment = new Assignment("first");
-		Assignment secondAssignment = new Assignment("second");
+		Assignment firstAssignment = new Assignment("first", 100);
+		Assignment secondAssignment = new Assignment("second", 100);
 		ArrayList<Assignment> assignments = new ArrayList<Assignment>();
 		assignments.add(firstAssignment);
 		assignments.add(secondAssignment);
