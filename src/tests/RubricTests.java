@@ -28,7 +28,6 @@ class RubricTests {
 		boolean isValid = rubricUnderTest.isValid();
 		
 		assertTrue(isValid);
-
 	}
 	
 	@Test

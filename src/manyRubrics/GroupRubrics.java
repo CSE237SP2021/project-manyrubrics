@@ -1,5 +1,6 @@
 package manyRubrics;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,10 +11,12 @@ public class GroupRubrics {
 	private List<Rubric> classRubric;
 	private Map<String, List<Rubric>> groupedRubrics;
 	
-	public GroupRubrics(String name, List<Rubric> rubricsToBeGrouped) {
+	public GroupRubrics (String name, List<Rubric> rubricsToBeGrouped) {
 		
 		this.className = name;
 		this.classRubric = rubricsToBeGrouped;
+		
+		this.groupedRubrics = new HashMap<String, List<Rubric>>();
 		
 		//Puts the rubrics for a specific class in the map groupedRubrics
 		this.groupedRubrics.put(className, classRubric);
