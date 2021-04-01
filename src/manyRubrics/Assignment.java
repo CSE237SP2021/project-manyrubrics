@@ -1,13 +1,21 @@
 package manyRubrics;
 
-public class Assignment {
 
+public class Assignment {
+	private static final int defaultMaxGrade = 100;
+
+	
 	private String name;
 	private int maxAssignmentGrade;
 	
 	public Assignment(String name, int totalAssignmentGrade) {
 		this.name = name;
 		this.maxAssignmentGrade = totalAssignmentGrade;
+	}
+	
+	public Assignment(String name) {
+		this.name = name;
+		this.maxAssignmentGrade = defaultMaxGrade;
 	}
 	
 	public String name() {

@@ -10,25 +10,22 @@ public class RubricExtractor {
 	private List<Assignment> assignments;
 	private List<Rubric> rubrics;
 	private Scanner scanner;
+	private String rubricFile;
 	
-	public RubricExtractor(String filename) {
+	public RubricExtractor(String filename) throws FileNotFoundException {
+		rubricFile = filename;
 		assignments = new ArrayList<Assignment>();
 		rubrics = new ArrayList<Rubric>();
 		
 		File infile = new File(filename);
-		try {
-			scanner = new Scanner(infile);
-			// first extract the list of assignments
-			if(scanner.hasNextLine()) {
-				extractAssignmentList();
-			}
-			// then go through every remaining row and extract the weights of the assignments
-			while(scanner.hasNextLine()) {
-				rubrics.add(getNextRubric());
-			}
-		} catch (FileNotFoundException e) {
-			assignments = null;
-			rubrics = null;
+		scanner = new Scanner(infile);
+		// first extract the list of assignments
+		if(scanner.hasNextLine()) {
+			extractAssignmentList();
+		}
+		// then go through every remaining row and extract the weights of the assignments
+		while(scanner.hasNextLine()) {
+			rubrics.add(getNextRubric());
 		}
 	}
 
@@ -56,6 +53,10 @@ public class RubricExtractor {
 
 	public List<Rubric> getRubricList() {
 		return rubrics;
+	}
+	
+	public String getRubricFile() {
+		return rubricFile;
 	}
 
 }
