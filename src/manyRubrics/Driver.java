@@ -10,7 +10,6 @@ public class Driver {
 	final static int studentFile = 2;
 	final static int expectedNumberOfArg = 3;
 
-
 	public static void main(String[] args) {
 		if(args.length == expectedNumberOfArg) {
 			try {
