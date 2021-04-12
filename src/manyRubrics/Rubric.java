@@ -9,6 +9,7 @@ public class Rubric {
 	private Map<Assignment, Integer> assignmentsToWeights;
 	private int maximumWeight;
 	private List<Assignment> passedInAssignments;
+	private String name;
 	
 	public Rubric(List<Assignment> assignments) {
 		this.assignmentsToWeights = new HashMap<Assignment, Integer>();
@@ -21,6 +22,10 @@ public class Rubric {
 		for(Assignment assignment : assignments) {
 			this.assignmentsToWeights.put(assignment, 0);
 		}
+	}
+	
+	public String name() {
+		return this.name;
 	}
 	
 	public boolean isValid() {

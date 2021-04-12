@@ -18,6 +18,10 @@ public class Student {
 		}
 	}
 	
+	public String name() {
+		return this.studentName;
+	}
+	
 	public void addScoreToAssignment(Assignment assignmentWithScore, double score) {
 		this.assigmentsToScores.replace(assignmentWithScore, score);
 	}
