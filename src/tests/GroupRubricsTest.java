@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import manyRubrics.Assignment;
 import manyRubrics.GroupRubrics;
 import manyRubrics.Rubric;
+import manyRubrics.Student;
 
 class GroupRubricsTest {
 
@@ -16,7 +17,7 @@ class GroupRubricsTest {
 	void testMaxRubricGrade() {
 		
 		ArrayList<Assignment> firstClassAssignments = new ArrayList<Assignment>();
-		Assignment firstAssignment = new Assignment("first", 100);
+		Assignment firstAssignment = new Assignment("first", 20);
 		Assignment secondAssignment = new Assignment("second", 100);
 		firstClassAssignments.add(firstAssignment);
 		firstClassAssignments.add(secondAssignment);
@@ -35,11 +36,13 @@ class GroupRubricsTest {
 		needGrouping.add(firstClassRubrics);
 		needGrouping.add(secondClassRubrics);
 		
-		String className = "CSE237";
-		GroupRubrics groupedRubrics = new GroupRubrics(className, needGrouping);
+		GroupRubrics groupedRubrics = new GroupRubrics(needGrouping);
 		
-		double testMaxRubricGrade = groupedRubrics.getMaxRubricGradeForGroupedRubrics(className);
+		//Not sure which list of assignments to pass in here
+		Student studentUnderTest = new Student("testStudent", firstClassAssignments);
 		
-		assertEquals(200.0, testMaxRubricGrade);
+		double studentHighestGrade = groupedRubrics.bestGrade(studentUnderTest);
+		
+		assertEquals(100.0, studentHighestGrade);
 	}
 }
