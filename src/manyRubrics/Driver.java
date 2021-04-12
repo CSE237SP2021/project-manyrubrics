@@ -16,16 +16,62 @@ public class Driver {
 	final static String manualMode = "-m";
 	final static String fileMode = "-f";
 	
-	public static void addAssignment(List<Assignment> assignments){
-		
+	public static void updateStudents(List<Student> students, List<Assignment> assignments) {
+		Student newStudent;
+		List<Student> newStudents = new ArrayList<Student>();
+		if(!students.isEmpty()) {
+			for(int i = 0; i < students.size(); i++) {
+				newStudent = new Student(students.get(i).name(), assignments);
+				newStudents.add(newStudent);
+	        }
+			students.clear();
+			students = newStudents;
+	    }
 	}
 	
-	public static void addStudent(List<Student> students){
-		
+	public static void updateRubrics(List<Rubric> rubrics, List<Assignment> assignments) {
+		Rubric newRubric;
+		List<Rubric> newRubrics = new ArrayList<Rubric>();
+		if(!rubrics.isEmpty()) {
+			for(int i = 0; i < rubrics.size(); i++) {
+				newRubric = new Rubric(rubrics.get(i).name(), assignments);
+				newRubrics.add(newRubric);
+	        }
+			rubrics.clear();
+			rubrics = newRubrics;
+		}
 	}
 	
-	public static void addRubric(List<Rubric> rubrics){
-		
+	public static void addAssignment(List<Rubric> rubrics, List<Student> students, List<Assignment> assignments){
+		Scanner input = new Scanner(System.in);
+        System.out.println("Assignment Name to Add: ");
+        String name = input.nextLine();
+        System.out.println("Max score for Assignment: ");
+        int maxScore = input.nextInt();
+        input.close();
+        Assignment assignment = new Assignment(name, maxScore);
+        assignments.add(assignment);
+        //Update Students and Rubrics
+        updateStudents(students, assignments);
+        updateRubrics(rubrics, assignments);
+	}
+	
+	public static void addStudent(List<Student> students, List<Assignment> assignments){
+        Scanner input = new Scanner(System.in);
+        System.out.println("Student Name to Add: ");
+        String name = input.nextLine();
+        input.close();
+        Student student = new Student(name, assignments);
+        students.add(student);
+	}
+	
+	public static void addRubric(List<Rubric> rubrics, List<Assignment> assignments){
+		Scanner input = new Scanner(System.in);
+        System.out.println("Rubric Name to Add: ");
+        String name = input.nextLine();
+        input.close();
+        Rubric rubric = new Rubric(name, assignments);
+        rubrics.add(rubric);
 	}
 	
 	public static void listAssignments(List<Assignment> assignments){
@@ -58,7 +104,7 @@ public class Driver {
 		}
 	}
 	
-	public static void deleteAssignment(List<Assignment> assignments){
+	public static void deleteAssignment(List<Rubric> rubrics, List<Student> students, List<Assignment> assignments){
         Scanner input = new Scanner(System.in);
         String name = input.nextLine();
         input.close();
@@ -67,6 +113,9 @@ public class Driver {
 				if(assignments.get(i).name()==name) {
 					assignments.remove(i);
 					System.out.println(name + " Successfully Deleted");
+					//Update Students and Rubrics
+					updateStudents(students, assignments);
+			        updateRubrics(rubrics, assignments);
 					return;
 				}
 			}
@@ -112,17 +161,53 @@ public class Driver {
         }    
 	}
 	
-	public static void calculateGrade(){
-		
+	public static void calculateGrade(List<Rubric> rubrics, List<Student> students, List<Assignment> assignments){
+		Scanner input = new Scanner(System.in);
+        System.out.println("Student Name to Grade: ");
+        String studentName = input.nextLine();
+        System.out.println("Rubric Name to Use: ");
+        String rubricName = input.nextLine();
+        input.close();
+        double grade = -1;
+        Student student = new Student("", assignments);
+        if(!students.isEmpty()) {
+        	for(int i = 0; i < students.size(); i++) {
+				if(students.get(i).name()==studentName) {
+					student = students.get(i);
+				}
+			}
+        	if(student.name()=="") {
+        		System.out.println(studentName + " is not a student");
+        		return;
+        	}
+        }else {
+			System.out.println("There are no Students");
+			return;
+        }
+        if(!rubrics.isEmpty()) {
+        	for(int i = 0; i < rubrics.size(); i++) {
+				if(rubrics.get(i).name()==rubricName) {
+					grade = rubrics.get(i).computeScoreForStudent(student);
+				}
+			}
+        	if(grade == -1) {
+        		System.out.println(rubricName + " is not a rubric");
+        		return;
+        	}
+        }else {
+			System.out.println("There are no Rubrics"); 
+			return;
+        }
+        System.out.println(studentName + " Has a Grade of: " + grade);
 	}
 	
 	public static void manualMode(){
 		//Manual entry mode in while loop
 		boolean exit = false;
         Scanner input = new Scanner(System.in);
-        List<Assignment> assignments = new ArrayList<Assignment>();;
-        List<Rubric> rubrics = new ArrayList<Rubric>();;
-        List<Student> students = new ArrayList<Student>();;
+        List<Assignment> assignments = new ArrayList<Assignment>();
+        List<Rubric> rubrics = new ArrayList<Rubric>();
+        List<Student> students = new ArrayList<Student>();
         
 		int choice;
 		while(!exit) {
@@ -140,34 +225,34 @@ public class Driver {
 			choice = input.nextInt();
 			switch(choice) {
 			case 1:
-				//Add Assignment
+				addAssignment(rubrics,students,assignments);
 				break;
 			case 2:
-				//Add Student
+				addStudent(students, assignments);
 				break;
 			case 3:
-				//Add Rubric
+				addRubric(rubrics, assignments);
 				break;
 			case 4:
-				//List Assignment
+				listAssignments(assignments);
 				break;
 			case 5:
-				//List Student
+				listStudents(students);
 				break;
 			case 6:
-				//List Rubric
+				listRubrics(rubrics);
 				break;
 			case 7:
-				//Delete Assignment
+				deleteAssignment(rubrics,students,assignments);
 				break;
 			case 8:
-				//Delete Student
+				deleteStudent(students);
 				break;
 			case 9:
-				//Delete Rubric
+				deleteRubric(rubrics);
 				break;
 			case 10:
-				//Calculate Grade
+				calculateGrade(rubrics,students,assignments);
 				break;
 			case 0:
 				exit = true;
