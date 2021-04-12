@@ -42,6 +42,11 @@ public class Rubric {
 		return this.name;
 	}
 	
+	public Map<Assignment, Integer> assignments(){
+		return this.assignmentsToWeights;
+		
+	}
+	
 	public boolean isValid() {
 		int totalWeight = this.computeTotalWeight();
 		

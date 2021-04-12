@@ -22,6 +22,10 @@ public class Student {
 		return this.studentName;
 	}
 	
+	public Map<Assignment, Double> assignments(){
+		return this.assigmentsToScores;
+	}
+	
 	public void addScoreToAssignment(Assignment assignmentWithScore, double score) {
 		this.assigmentsToScores.replace(assignmentWithScore, score);
 	}

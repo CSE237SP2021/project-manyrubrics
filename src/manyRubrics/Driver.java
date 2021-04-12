@@ -3,6 +3,7 @@ package manyRubrics;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Scanner;
 
 
@@ -42,6 +43,22 @@ public class Driver {
 		}
 	}
 	
+	public static void setScores(Student student) {
+        Scanner input = new Scanner(System.in);
+		for (Entry<Assignment, Double> entry : student.assignments().entrySet()) {
+			System.out.println("Enter " + student.name() + "'s Score for assignment: " + entry.getKey().name());
+		}
+		input.close();
+	}
+
+	public static void setWeights(Rubric rubric) {
+		Scanner input = new Scanner(System.in);
+		for (Entry<Assignment, Integer> entry : rubric.assignments().entrySet()) {
+			System.out.println("Enter " + rubric.name() + "'s Weight for assignment: " + entry.getKey().name());
+		}
+		input.close();
+	}
+	
 	public static void addAssignment(List<Rubric> rubrics, List<Student> students, List<Assignment> assignments){
 		Scanner input = new Scanner(System.in);
         System.out.println("Assignment Name to Add: ");
@@ -62,6 +79,7 @@ public class Driver {
         String name = input.nextLine();
         input.close();
         Student student = new Student(name, assignments);
+        setScores(student);
         students.add(student);
 	}
 	
@@ -71,6 +89,7 @@ public class Driver {
         String name = input.nextLine();
         input.close();
         Rubric rubric = new Rubric(name, assignments);
+        setWeights(rubric);
         rubrics.add(rubric);
 	}
 	
