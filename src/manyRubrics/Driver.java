@@ -17,44 +17,24 @@ public class Driver {
 	final static String manualMode = "-m";
 	final static String fileMode = "-f";
 	
-	public static void updateStudents(List<Student> students, List<Assignment> assignments) {
-		Student newStudent;
-		List<Student> newStudents = new ArrayList<Student>();
-		if(!students.isEmpty()) {
-			for(int i = 0; i < students.size(); i++) {
-				newStudent = new Student(students.get(i).name(), assignments);
-				newStudents.add(newStudent);
-	        }
-			students.clear();
-			students = newStudents;
-	    }
-	}
-	
-	public static void updateRubrics(List<Rubric> rubrics, List<Assignment> assignments) {
-		Rubric newRubric;
-		List<Rubric> newRubrics = new ArrayList<Rubric>();
-		if(!rubrics.isEmpty()) {
-			for(int i = 0; i < rubrics.size(); i++) {
-				newRubric = new Rubric(rubrics.get(i).name(), assignments);
-				newRubrics.add(newRubric);
-	        }
-			rubrics.clear();
-			rubrics = newRubrics;
-		}
-	}
-	
 	public static void setScores(Student student) {
         Scanner input = new Scanner(System.in);
+        double score;
 		for (Entry<Assignment, Double> entry : student.assignments().entrySet()) {
 			System.out.println("Enter " + student.name() + "'s Score for assignment: " + entry.getKey().name());
+			score = input.nextDouble();
+			student.addScoreToAssignment(entry.getKey(), score);
 		}
 		input.close();
 	}
 
 	public static void setWeights(Rubric rubric) {
 		Scanner input = new Scanner(System.in);
+		int weight;
 		for (Entry<Assignment, Integer> entry : rubric.assignments().entrySet()) {
 			System.out.println("Enter " + rubric.name() + "'s Weight for assignment: " + entry.getKey().name());
+			weight = input.nextInt();
+			rubric.setAssignmentWeight(entry.getKey(), weight);
 		}
 		input.close();
 	}
@@ -69,8 +49,7 @@ public class Driver {
         Assignment assignment = new Assignment(name, maxScore);
         assignments.add(assignment);
         //Update Students and Rubrics
-        updateStudents(students, assignments);
-        updateRubrics(rubrics, assignments);
+
 	}
 	
 	public static void addStudent(List<Student> students, List<Assignment> assignments){
@@ -133,8 +112,7 @@ public class Driver {
 					assignments.remove(i);
 					System.out.println(name + " Successfully Deleted");
 					//Update Students and Rubrics
-					updateStudents(students, assignments);
-			        updateRubrics(rubrics, assignments);
+
 					return;
 				}
 			}
