@@ -1,6 +1,9 @@
 package manyRubrics;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
@@ -8,13 +11,145 @@ import java.util.Scanner;
 
 public class Driver {
 	
-	final static int programName = 0;
-	final static int inputMode = 1;
-	final static int rubricFile = 2;
-	final static int studentFile = 3;
-	final static int fileModeArgs = 4;
+	final static int noInput = 0;
+	final static int justMode = 1;
+	final static int fileModeArgs = 3;
+	
+	final static int programMode = 0;
+	final static int rubricFile = 1;
+	final static int studentFile = 2;
+	
 	final static String manualMode = "-m";
 	final static String fileMode = "-f";
+	
+	public static void main(String[] args) {
+		int numArgs = args.length;
+		switch(numArgs) {
+		case noInput:		
+			progamUsage("Driver");
+			break;
+		case justMode:
+			if(args[programMode]==manualMode) {
+				manualMode();
+			}else if(args[programMode]==fileMode) {
+				fileModeUsage("Driver");
+			}else {
+				progamUsage("Driver");
+			}
+			break;
+		case fileModeArgs:
+			fileMode(args);				
+			break;
+		default:
+			progamUsage("Driver");
+			break;
+		}
+	}
+	
+	public static void manualMode(){
+		//Manual entry mode in while loop
+		boolean exit = false;
+        Scanner input = new Scanner(System.in);
+        List<Assignment> assignments = new ArrayList<Assignment>();
+        List<Rubric> rubrics = new ArrayList<Rubric>();
+        List<Student> students = new ArrayList<Student>();
+        
+		int choice;
+		while(!exit) {
+			System.out.println("1. Add an Assignment");
+			System.out.println("2. Add a Student");
+			System.out.println("3. Add a Rubric");
+			System.out.println("4. List Assignments");
+			System.out.println("5. List Students");
+			System.out.println("6. List Rubrics");
+			System.out.println("7. Delete an Assignment");
+			System.out.println("8. Delete a Student");
+			System.out.println("9. Delete a Rubric");
+			System.out.println("10. Calculate Grade");
+			System.out.println("0. Exit");
+			choice = input.nextInt();
+			switch(choice) {
+			case 1:
+				addAssignment(rubrics,students,assignments);
+				break;
+			case 2:
+				addStudent(students, assignments);
+				break;
+			case 3:
+				addRubric(rubrics, assignments);
+				break;
+			case 4:
+				listAssignments(assignments);
+				break;
+			case 5:
+				listStudents(students);
+				break;
+			case 6:
+				listRubrics(rubrics);
+				break;
+			case 7:
+				deleteAssignment(rubrics,students,assignments);
+				break;
+			case 8:
+				deleteStudent(students);
+				break;
+			case 9:
+				deleteRubric(rubrics);
+				break;
+			case 10:
+				calculateGrade(rubrics,students,assignments);
+				break;
+			case 0:
+				exit = true;
+				break;
+			default:
+				break;
+			}
+		}
+		input.close();
+	}
+	
+	public static void fileMode(String[] args){
+		try{
+			RubricExtractor rubricExtractor = new RubricExtractor(args[rubricFile]);
+			List<Assignment> assignmentList = rubricExtractor.getAssignmentList();
+			StudentGradeExtractor gradeExtractor = new StudentGradeExtractor(args[studentFile], assignmentList);
+			writeToFile(gradeExtractor.getStudentList(), rubricExtractor.getRubricList());
+		} catch(FileNotFoundException e) {
+			e.printStackTrace();
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void writeToFile(List<Student> students, List<Rubric> rubrics) throws IOException {
+		GroupRubrics grader = new GroupRubrics(rubrics);
+		File outfile = new File("Final_Grades.txt");
+		StringBuilder finalGrades = new StringBuilder();
+		for(Student student : students) {
+			finalGrades.append(student.name());
+			finalGrades.append(": ");
+			finalGrades.append(grader.bestGrade(student));
+			finalGrades.append('\n');
+		}
+		FileWriter writer = new FileWriter(outfile);
+		writer.write(finalGrades.toString());
+		writer.close();
+	}
+	
+	public static void fileModeUsage(String programName) {
+		System.out.println(programName + "-f <rubricFile> <studentFile> Usage:");
+		System.out.println("<rubricFile>: Text file holding rubric information");
+		System.out.println("<studentFile>: Text file holding student information");
+	}
+	
+	public static void progamUsage(String programName){
+		System.out.println(programName + " Usage:");
+		System.out.println(programName + " -m: Runs program in manual entry mode");
+		System.out.println(programName + " -f: Displays usage for file entry mode");
+		System.out.println(programName + " -f <rubricFile> <studentFile>: "
+				+ "Runs program in file entry mode with <rubricFile> as rubric file and <studentFile> student file");
+	}
 	
 	public static void setScores(Student student) {
         Scanner input = new Scanner(System.in);
@@ -197,114 +332,5 @@ public class Driver {
         System.out.println(studentName + " Has a Grade of: " + grade);
 	}
 	
-	public static void manualMode(){
-		//Manual entry mode in while loop
-		boolean exit = false;
-        Scanner input = new Scanner(System.in);
-        List<Assignment> assignments = new ArrayList<Assignment>();
-        List<Rubric> rubrics = new ArrayList<Rubric>();
-        List<Student> students = new ArrayList<Student>();
-        
-		int choice;
-		while(!exit) {
-			System.out.println("1. Add an Assignment");
-			System.out.println("2. Add a Student");
-			System.out.println("3. Add a Rubric");
-			System.out.println("4. List Assignments");
-			System.out.println("5. List Students");
-			System.out.println("6. List Rubrics");
-			System.out.println("7. Delete an Assignment");
-			System.out.println("8. Delete a Student");
-			System.out.println("9. Delete a Rubric");
-			System.out.println("10. Calculate Grade");
-			System.out.println("0. Exit");
-			choice = input.nextInt();
-			switch(choice) {
-			case 1:
-				addAssignment(rubrics,students,assignments);
-				break;
-			case 2:
-				addStudent(students, assignments);
-				break;
-			case 3:
-				addRubric(rubrics, assignments);
-				break;
-			case 4:
-				listAssignments(assignments);
-				break;
-			case 5:
-				listStudents(students);
-				break;
-			case 6:
-				listRubrics(rubrics);
-				break;
-			case 7:
-				deleteAssignment(rubrics,students,assignments);
-				break;
-			case 8:
-				deleteStudent(students);
-				break;
-			case 9:
-				deleteRubric(rubrics);
-				break;
-			case 10:
-				calculateGrade(rubrics,students,assignments);
-				break;
-			case 0:
-				exit = true;
-				break;
-			default:
-				break;
-			}
-		}
-		input.close();
-	}
 	
-	public static void fileMode(String[] args){
-		try{
-			RubricExtractor rubricExtractor = new RubricExtractor(args[rubricFile]);
-			List<Assignment> assignmentList = rubricExtractor.getAssignmentList();
-			StudentGradeExtractor gradeExtractor = new StudentGradeExtractor(args[studentFile], assignmentList);
-		}catch(FileNotFoundException e) {
-			
-		}
-	}
-	
-	public static void fileModeUsage(String programName) {
-		System.out.println(programName + "-f <rubricFile> <studentFile> Usage:");
-		System.out.println("<rubricFile>: Text file holding rubric information");
-		System.out.println("<studentFile>: Text file holding student information");
-	}
-	
-	public static void progamUsage(String programName){
-		System.out.println(programName + " Usage:");
-		System.out.println(programName + " -m: Runs program in manual entry mode");
-		System.out.println(programName + " -f: Displays usage for file entry mode");
-		System.out.println(programName + " -f <rubricFile> <studentFile>: "
-				+ "Runs program in file entry mode with <rubricFile> as rubric file and <studentFile> student file");
-	}
-	
-	public static void main(String[] args) {
-		int numArgs = args.length-1;
-		switch(numArgs) {
-		case programName:
-			progamUsage(args[programName]);
-			break;
-		case inputMode:
-			if(args[inputMode]==manualMode) {
-				manualMode();
-			}else if(args[inputMode]==fileMode) {
-				fileModeUsage(args[programName]);
-			}else {
-				progamUsage(args[programName]);
-			}
-			break;
-		case fileModeArgs:
-			fileMode(args);
-			break;
-		default:
-			progamUsage(args[programName]);
-			break;
-		}
-	}
 }
