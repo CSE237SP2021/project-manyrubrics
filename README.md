@@ -25,10 +25,10 @@ Our project is a Java Command Line Application which allows teachers and student
 ## Iteration 2
 
 ### What user stories were completed this iteration?
-
+-Issue #4: A student should be able to test what grade they will receive in a class by putting in their scores. 
 
 ### What user stories do you intend to complete next iteration?
-
+-Issue #5: A teacher should be able to get a file with their students' final grades
 
 ### Is there anything that you implemented but doesn't currently work?
 
