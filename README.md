@@ -25,7 +25,7 @@ Our project is a Java Command Line Application which allows teachers and student
 ## Iteration 2
 
 ### What user stories were completed this iteration?
-- A teacher should be able to get a file with their students' final grades
+- Issue #5: A teacher should be able to get a file with their students' final grades
 - the program should provide usage info when run incorrectly
 - a teacher should be able to calculate the max grade for a student
 - Issue #4: A student should be able to test what grade they will receive in a class by putting in their scores. 
