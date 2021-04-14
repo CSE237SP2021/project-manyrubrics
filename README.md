@@ -34,6 +34,7 @@ Our project is a Java Command Line Application which allows teachers and student
 ### What user stories do you intend to complete next iteration?
 - A teacher can produce grades for different classes
 - A student should be able to test what grade they will receive in a class by putting in their scores
+- A teacher should be able to create new assignments
 
 ### Is there anything that you implemented but doesn't currently work?
 - We have an unimplemented unit test for our user interface class because we are uncertain if we need any unit tests for the menu
