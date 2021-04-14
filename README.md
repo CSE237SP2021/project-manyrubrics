@@ -25,14 +25,16 @@ Our project is a Java Command Line Application which allows teachers and student
 ## Iteration 2
 
 ### What user stories were completed this iteration?
-- Issue #5: A teacher should be able to get a file with their students' final grades
-- the program should provide usage info when run incorrectly
-- a teacher should be able to calculate the max grade for a student
-- Issue #4: A student should be able to test what grade they will receive in a class by putting in their scores. 
+- A teacher should be able to get a file with their students' final grades
+- A teacher should be able to calculate the max grade for a student
+- A student should be able to test what grade they will receive in a class by putting in their scores. 
+- A teacher should be able to group rubrics together
+- The program should provide usage info when run incorrectly
 
 ### What user stories do you intend to complete next iteration?
 - A teacher can produce grades for different classes
 - A student should be able to test what grade they will receive in a class by putting in their scores
+- A teacher should be able to create new assignments
 
 ### Is there anything that you implemented but doesn't currently work?
 - We have an unimplemented unit test for our user interface class because we are uncertain if we need any unit tests for the menu
