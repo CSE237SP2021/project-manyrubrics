@@ -9,6 +9,7 @@ public class Rubric {
 	private Map<Assignment, Integer> assignmentsToWeights;
 	private int maximumWeight;
 	private List<Assignment> passedInAssignments;
+	private String name;
 	
 	public Rubric(List<Assignment> assignments) {
 		this.assignmentsToWeights = new HashMap<Assignment, Integer>();
@@ -21,6 +22,29 @@ public class Rubric {
 		for(Assignment assignment : assignments) {
 			this.assignmentsToWeights.put(assignment, 0);
 		}
+	}
+	
+	public Rubric(String name, List<Assignment> assignments) {
+		this.name = name;
+		this.assignmentsToWeights = new HashMap<Assignment, Integer>();
+		this.passedInAssignments = assignments;
+		
+		// most classes have a maximum score of 100, so the constructor that does not specify a different max score defaults
+		// to 100;
+		this.maximumWeight = 100;
+
+		for(Assignment assignment : assignments) {
+			this.assignmentsToWeights.put(assignment, 0);
+		}
+	}
+	
+	public String name() {
+		return this.name;
+	}
+	
+	public Map<Assignment, Integer> assignments(){
+		return this.assignmentsToWeights;
+		
 	}
 	
 	public boolean isValid() {

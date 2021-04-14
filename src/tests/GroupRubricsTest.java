@@ -9,37 +9,46 @@ import org.junit.jupiter.api.Test;
 import manyRubrics.Assignment;
 import manyRubrics.GroupRubrics;
 import manyRubrics.Rubric;
+import manyRubrics.Student;
 
 class GroupRubricsTest {
 
 	@Test
 	void testMaxRubricGrade() {
 		
-		ArrayList<Assignment> firstClassAssignments = new ArrayList<Assignment>();
+		ArrayList<Assignment> assignments = new ArrayList<Assignment>();
+		
 		Assignment firstAssignment = new Assignment("first", 100);
 		Assignment secondAssignment = new Assignment("second", 100);
-		firstClassAssignments.add(firstAssignment);
-		firstClassAssignments.add(secondAssignment);
+		assignments.add(firstAssignment);
+		assignments.add(secondAssignment);
 		
-		Rubric firstClassRubrics = new Rubric(firstClassAssignments);
+		Student student = new Student("Test Student", assignments);
+		student.addScoreToAssignment(firstAssignment, 100);
+		student.addScoreToAssignment(secondAssignment, 60);
+
+		Rubric firstRubric = new Rubric(assignments);
+		firstRubric.setAssignmentWeight(firstAssignment, 50);
+		firstRubric.setAssignmentWeight(secondAssignment, 50);
 		
-		ArrayList<Assignment> secondClassAssignments = new ArrayList<Assignment>();
-		Assignment assignmentOne = new Assignment("first", 100);
-		Assignment assignmentTwo = new Assignment("second", 100);
-		secondClassAssignments.add(assignmentOne);
-		secondClassAssignments.add(assignmentTwo);
+		//80.0
+		double firstRubricScore = firstRubric.computeScoreForStudent(student); 
 		
-		Rubric secondClassRubrics = new Rubric(secondClassAssignments);
+		Rubric secondRubric = new Rubric(assignments);
+		secondRubric.setAssignmentWeight(firstAssignment, 70);
+		secondRubric.setAssignmentWeight(secondAssignment, 30);
+		
+		//88.0
+		double secondRubricScore = secondRubric.computeScoreForStudent(student);
 		
 		ArrayList<Rubric> needGrouping = new ArrayList<Rubric>();
-		needGrouping.add(firstClassRubrics);
-		needGrouping.add(secondClassRubrics);
+		needGrouping.add(firstRubric);
+		needGrouping.add(secondRubric);
 		
-		String className = "CSE237";
-		GroupRubrics groupedRubrics = new GroupRubrics(className, needGrouping);
+		GroupRubrics groupedRubrics = new GroupRubrics(needGrouping);
 		
-		double testMaxRubricGrade = groupedRubrics.getMaxRubricGradeForGroupedRubrics(className);
+		double studentHighestGrade = groupedRubrics.bestGrade(student);
 		
-		assertEquals(200.0, testMaxRubricGrade);
+		assertEquals(88, studentHighestGrade);
 	}
 }
