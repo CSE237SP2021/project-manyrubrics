@@ -28,6 +28,7 @@ Our project is a Java Command Line Application which allows teachers and student
 - A teacher should be able to get a file with their students' final grades
 - the program should provide usage info when run incorrectly
 - a teacher should be able to calculate the max grade for a student
+- Issue #4: A student should be able to test what grade they will receive in a class by putting in their scores. 
 
 ### What user stories do you intend to complete next iteration?
 - A teacher can produce grades for different classes
@@ -41,4 +42,5 @@ Our project is a Java Command Line Application which allows teachers and student
 - simply run ./run.sh
 - Running this will run the program, you can use -f testfile.txt scoreTestfile.txt to see an example output
 - you can also create your own rubric files and student files. A rubric file will have a list of whitespace separated assignment names as the first line, followed by a list of integer weights for those assignments on each line, one line per rubric, summing to 100. A student file will have each line as a (1 word) student name, followed  by their grade on each assignment in the same order as the rubric file.
+- To run Issue #4: once you run the script, first add an assignment by typing '1' (we suggest adding at least 2), then add it to a rubric choice '3', finally, type '11' which is predict grade. The predicted grade of the student will appear. 
 
