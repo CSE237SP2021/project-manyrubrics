@@ -21,3 +21,17 @@ Our project is a Java Command Line Application which allows teachers and student
 
 ### What commands are needed to compile and run your code from the command line?
 - Since our user input through the command line isn't fully functioning yet, our project can't currently run. We are looking to have this working by Iteration 2. The best way to test our code is to run our unit tests.
+
+## Iteration 2
+
+### What user stories were completed this iteration?
+
+
+### What user stories do you intend to complete next iteration?
+
+
+### Is there anything that you implemented but doesn't currently work?
+
+
+### What commands are needed to compile and run your code from the command line?
+
