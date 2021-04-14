@@ -3,6 +3,8 @@ package tests;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
@@ -69,6 +71,30 @@ class RubricTests {
 		rubricUnderTest.setAssignmentWeight(secondAssignment, 50);
 		
 		double score = rubricUnderTest.computeScoreForStudent(student);
+		
+		assertEquals(80.0, score);
+
+	}
+	
+	@Test
+	void testRubricComputeScoresFromMap() {
+		ArrayList<Assignment> assignments = new ArrayList<Assignment>();
+		
+		Assignment firstAssignment = new Assignment("first", 100);
+		
+		Assignment secondAssignment = new Assignment("second", 100);
+		assignments.add(firstAssignment);
+		assignments.add(secondAssignment);
+		
+		Map<Assignment,Double>Scores=new HashMap<>();
+		Scores.put(firstAssignment, 100.0);
+		Scores.put(secondAssignment, 60.0);
+		
+		Rubric rubricUnderTest = new Rubric(assignments);
+		rubricUnderTest.setAssignmentWeight(firstAssignment, 50);
+		rubricUnderTest.setAssignmentWeight(secondAssignment, 50);
+		
+		double score = rubricUnderTest.computeScoreForAssignment(Scores);
 		
 		assertEquals(80.0, score);
 
