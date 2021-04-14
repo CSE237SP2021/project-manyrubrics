@@ -1,6 +1,9 @@
 package manyRubrics;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,17 +13,36 @@ import java.util.Scanner;
 
 public class Driver {
 
-	final static int programName = 0;
-	final static int inputMode = 1;
-	final static int rubricFile = 2;
-	final static int studentFile = 3;
-	final static int fileModeArgs = 4;
+	final static int noInput = 0;
+	final static int justMode = 1;
+	final static int fileModeArgs = 3;
+
+	final static int programMode = 0;
+	final static int rubricFile = 1;
+	final static int studentFile = 2;
+
 	final static String manualMode = "-m";
 	final static String fileMode = "-f";
 	final static Scanner input = new Scanner(System.in);
-	
+
+
+	public static void writeToFile(List<Student> students, List<Rubric> rubrics) throws IOException {
+		GroupRubrics grader = new GroupRubrics(rubrics);
+		File outfile = new File("Final_Grades.txt");
+		StringBuilder finalGrades = new StringBuilder();
+		for (Student student : students) {
+			finalGrades.append(student.name());
+			finalGrades.append(": ");
+			finalGrades.append(grader.bestGrade(student));
+			finalGrades.append('\n');
+		}
+		FileWriter writer = new FileWriter(outfile);
+		writer.write(finalGrades.toString());
+		writer.close();
+	}
+
 	public static void setScores(Student student) {
-		
+
 		double score;
 		for (Entry<Assignment, Double> entry : student.assignments().entrySet()) {
 			System.out.println("Enter " + student.name() + "'s Score for assignment: " + entry.getKey().name());
@@ -28,11 +50,11 @@ public class Driver {
 			input.nextLine();
 			student.addScoreToAssignment(entry.getKey(), score);
 		}
-		
+
 	}
 
 	public static void setWeights(Rubric rubric) {
-		
+
 		int weight;
 		for (Entry<Assignment, Integer> entry : rubric.assignments().entrySet()) {
 			System.out.println("Enter " + rubric.name() + "'s Weight for assignment: " + entry.getKey().name());
@@ -40,11 +62,11 @@ public class Driver {
 			input.nextLine();
 			rubric.setAssignmentWeight(entry.getKey(), weight);
 		}
-		
+
 	}
 
 	public static void addAssignment(List<Rubric> rubrics, List<Student> students, List<Assignment> assignments) {
-		
+
 		System.out.println("Assignment Name to Add: ");
 		String name = input.nextLine();
 		System.out.println("Max score for Assignment: ");
@@ -57,7 +79,7 @@ public class Driver {
 	}
 
 	public static void addStudent(List<Student> students, List<Assignment> assignments) {
-		
+
 		System.out.println("Student Name to Add: ");
 		String name = input.nextLine();
 		input.nextLine();
@@ -287,7 +309,7 @@ public class Driver {
 				break;
 			}
 		}
-		
+
 	}
 
 	public static void fileMode(String[] args) {
@@ -317,23 +339,23 @@ public class Driver {
 	public static void main(String[] args) {
 		int numArgs = args.length - 1;
 		switch (numArgs) {
-		case programName:
-			progamUsage(args[programName]);
+		case noInput:
+			progamUsage(args[noInput]);
 			break;
-		case inputMode:
-			if (args[inputMode].equals(manualMode)) {
+		case justMode:
+			if (args[justMode].equals(manualMode)) {
 				manualMode();
-			} else if (args[inputMode].equals(fileMode)) {
-				fileModeUsage(args[programName]);
+			} else if (args[justMode].equals(fileMode)) {
+				fileModeUsage(args[noInput]);
 			} else {
-				progamUsage(args[programName]);
+				progamUsage(args[noInput]);
 			}
 			break;
 		case fileModeArgs:
 			fileMode(args);
 			break;
 		default:
-			progamUsage(args[programName]);
+			progamUsage(args[noInput]);
 			break;
 		}
 		input.close();

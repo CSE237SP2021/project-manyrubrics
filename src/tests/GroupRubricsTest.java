@@ -16,33 +16,39 @@ class GroupRubricsTest {
 	@Test
 	void testMaxRubricGrade() {
 		
-		ArrayList<Assignment> firstClassAssignments = new ArrayList<Assignment>();
-		Assignment firstAssignment = new Assignment("first", 20);
+		ArrayList<Assignment> assignments = new ArrayList<Assignment>();
+		
+		Assignment firstAssignment = new Assignment("first", 100);
 		Assignment secondAssignment = new Assignment("second", 100);
-		firstClassAssignments.add(firstAssignment);
-		firstClassAssignments.add(secondAssignment);
+		assignments.add(firstAssignment);
+		assignments.add(secondAssignment);
 		
-		Rubric firstClassRubrics = new Rubric(firstClassAssignments);
+		Student student = new Student("Test Student", assignments);
+		student.addScoreToAssignment(firstAssignment, 100);
+		student.addScoreToAssignment(secondAssignment, 60);
+
+		Rubric firstRubric = new Rubric(assignments);
+		firstRubric.setAssignmentWeight(firstAssignment, 50);
+		firstRubric.setAssignmentWeight(secondAssignment, 50);
 		
-		ArrayList<Assignment> secondClassAssignments = new ArrayList<Assignment>();
-		Assignment assignmentOne = new Assignment("first", 100);
-		Assignment assignmentTwo = new Assignment("second", 100);
-		secondClassAssignments.add(assignmentOne);
-		secondClassAssignments.add(assignmentTwo);
+		//80.0
+		double firstRubricScore = firstRubric.computeScoreForStudent(student); 
 		
-		Rubric secondClassRubrics = new Rubric(secondClassAssignments);
+		Rubric secondRubric = new Rubric(assignments);
+		secondRubric.setAssignmentWeight(firstAssignment, 70);
+		secondRubric.setAssignmentWeight(secondAssignment, 30);
+		
+		//88.0
+		double secondRubricScore = secondRubric.computeScoreForStudent(student);
 		
 		ArrayList<Rubric> needGrouping = new ArrayList<Rubric>();
-		needGrouping.add(firstClassRubrics);
-		needGrouping.add(secondClassRubrics);
+		needGrouping.add(firstRubric);
+		needGrouping.add(secondRubric);
 		
 		GroupRubrics groupedRubrics = new GroupRubrics(needGrouping);
 		
-		//Not sure which list of assignments to pass in here
-		Student studentUnderTest = new Student("testStudent", firstClassAssignments);
+		double studentHighestGrade = groupedRubrics.bestGrade(student);
 		
-		double studentHighestGrade = groupedRubrics.bestGrade(studentUnderTest);
-		
-		assertEquals(100.0, studentHighestGrade);
+		assertEquals(88, studentHighestGrade);
 	}
 }

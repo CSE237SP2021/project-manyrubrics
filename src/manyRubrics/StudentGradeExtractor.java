@@ -16,7 +16,6 @@ public class StudentGradeExtractor {
 		this.students = new ArrayList<Student>();
 		this.assignmentList = assignmentList;
 		File studentFile = new File(filename);
-		System.out.println(studentFile);
 		scanner = new Scanner(studentFile);
 		while(scanner.hasNextLine()) {
 			try {
