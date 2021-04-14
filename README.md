@@ -44,5 +44,5 @@ Our project is a Java Command Line Application which allows teachers and student
 - simply run ./run.sh
 - Running this will run the program, you can use -f testfile.txt scoreTestfile.txt to see an example output
 - you can also create your own rubric files and student files. A rubric file will have a list of whitespace separated assignment names as the first line, followed by a list of integer weights for those assignments on each line, one line per rubric, summing to 100. A student file will have each line as a (1 word) student name, followed  by their grade on each assignment in the same order as the rubric file.
-- To run Issue #4: once you run the script, first add an assignment by typing '1' (we suggest adding at least 2), then add it to a rubric choice '3' (give the rubric a name), finally, type '11'and give the name of the rubric; this will output the predicted grade of the student. 
+- To run Issue #4 (A student should be able to test what grade they will receive in a class by putting in their scores): once you run the script, first add an assignment by typing '1' (we suggest adding at least 2), then add it to a rubric choice '3' (give the rubric a name), finally, type '11'and give the name of the rubric; this will output the predicted grade of the student. 
 
