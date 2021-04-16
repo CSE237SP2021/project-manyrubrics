@@ -94,11 +94,12 @@ class ClassroomTest {
 		rubricUnderTest.setAssignmentWeight(firstAssignment, 50);
 		rubricUnderTest.setAssignmentWeight(secondAssignment, 50);
 		
-		String firstClass = "First Class";
+		String first = "First Class";
 		
-		Classroom testClassGrades = new Classroom(firstClass, studentList, rubricUnderTest);
+		Classroom firstClassroom = new Classroom(first, studentList, rubricUnderTest);
 		
-		Map<Student, Double> firstClassGrades = testClassGrades.getClassGrades(firstClass);
+		Map<Student, Double> firstClassGrades = firstClassroom.getClassGrades(first);
+		
 		assertEquals(80, firstClassGrades.get(studentOne));
 		assertEquals(100, firstClassGrades.get(studentTwo));
 		assertEquals(90, firstClassGrades.get(studentThree));

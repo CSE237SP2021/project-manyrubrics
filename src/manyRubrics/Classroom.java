@@ -36,16 +36,12 @@ public class Classroom {
 		return studentGrades;
 	}
 	
-	/*
-	public void updateMapWithClassGrades() {
-		
-		classGrades.put(className, studentGrades);
-		
-	}
-	*/
-	
 	//Gets the grades for a specified class
 	public Map<Student, Double> getClassGrades(String desiredClass) {
+		
+		calculateGrades();
+		
+		Map<Student, Double> desiredGrades = new HashMap<Student, Double>();
 		
 		for (Map.Entry<String, Map<Student, Double>> entry : classGrades.entrySet()) {
 			
@@ -53,12 +49,12 @@ public class Classroom {
 			Map<Student, Double> value = entry.getValue();
 			
 			if (key.equals(desiredClass)) {
-				return value;
+				desiredGrades = value;
 			}
 			
 		}
 		
-		return null;
+		return desiredGrades;
 		
 	}
 }
