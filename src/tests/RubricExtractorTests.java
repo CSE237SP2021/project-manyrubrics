@@ -17,6 +17,9 @@ import manyRubrics.Student;
 
 class RubricExtractorTests {
 	
+	/*
+	 * The rubric extractor should be able to read the list of assignments first
+	 */
 	@Test
 	void testRubricExtractorReadsAssignments() {
 		RubricExtractor extractor;
@@ -37,7 +40,11 @@ class RubricExtractorTests {
 
 	}
 
-	
+
+	/*
+	 * after reading the assignment list, the rubric extractor should be able to read in all the rubrics in the
+	 * testfile
+	 */
 	@Test
 	void testRubricExtractorReadsAllRubrics() {
 		RubricExtractor extractor;
@@ -59,6 +66,9 @@ class RubricExtractorTests {
 		
 	}
 	
+	/*
+	 * the rubricExtractor should fail if no assignment list is provided
+	 */
 	@Test
 	void testRubricExtractorFailsWithNoAssignmentList(){
 		Exception e = assertThrows(DataFormatException.class, () -> {
@@ -67,6 +77,9 @@ class RubricExtractorTests {
 		assertEquals(e.getMessage(), "The rubric file must contain a list of space-separated assignments that are not interpretable as weights. add one and try again");
 	}
 	
+	/*
+	 * the rubricExtractor should fail if there are no rubrics provided
+	 */
 	@Test
 	void testRubricExtractorFailsWithNoRubricsProvided(){
 		Exception e = assertThrows(DataFormatException.class, () -> {
@@ -75,6 +88,10 @@ class RubricExtractorTests {
 		assertEquals(e.getMessage(), "No valid rubrics were read from the file. Please include at least one valid rubric and try again");
 	}
 	
+	/*
+	 * the rubric extractor should skip over any rubrics with the wrong number of weights, but should recover
+	 * by ignoring that rubric and continuing to extract other rubrics
+	 */
 	@Test
 	void testRubricExtractorRecoversWithIncorrectNumberOfWeights(){
 		// capture systemOut:
@@ -99,6 +116,10 @@ class RubricExtractorTests {
 		}
 	}
 	
+	/*
+	 * the rubricExtractor should skip over any rubrics with assignment weights that cannot be interpreted as
+	 * a number, but should recover by ignoring that rubric and continuing to extract other rubrics
+	 */
 	@Test
 	void testRubricExtractorRecoversWithMalformedAssignmentWeight(){
 		// capture systemOut:

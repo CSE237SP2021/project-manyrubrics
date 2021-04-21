@@ -19,6 +19,10 @@ import manyRubrics.StudentGradeExtractor;
 class StudentGradeExtractorTests {
 	
 
+	/*
+	 * along the happy path of execution, the studentGradeExtractor should be able to pull out grades for each
+	 * student, so we test that all students get the expected grade (which for this test is 100)
+	 */
 	@Test
 	void testExtractStudentGradesGoodFile() {
 		RubricExtractor rubricExtractor;
@@ -41,11 +45,13 @@ class StudentGradeExtractorTests {
 		
 	}
 	
-	
+	/*
+	 * with an incorrect number of assignments in the student file, the gradeExtractor should just throw an
+     * exception because it cannot extract any assignment grades for the students
+	 */
 	@Test
 	void testExtractStudentGradesIncorrectNumberOfAssignments() {
-		// with an incorrect number of assignments in the student file, the gradeExtractor should just throw an
-		// exception because it cannot extract any assignment grades for the students
+		
 		assertThrows(DataFormatException.class, () -> {
 			RubricExtractor rubricExtractor;
 			rubricExtractor = new RubricExtractor("testfiles/rubricTestFile.txt");
@@ -92,6 +98,10 @@ class StudentGradeExtractorTests {
 		}
 	}
 	
+	/*
+	 * if an individual student's grade is listed in a way that cannot be interpreted as a number,
+	 * the program should skip over that student and print an error message, but continue running
+	 */
 	@Test
 	void testExtractStudentGradesRecoversForMalformedStudentGrade() {
 		// capture systemOut:

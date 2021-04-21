@@ -54,7 +54,7 @@ public class RubricExtractor {
 	
 	private Rubric getNextRubric() throws DataFormatException, NumberFormatException {
 		String rubricWeights = scanner.nextLine();
-		String[] weights = rubricWeights.split(" ");
+		String[] weights = rubricWeights.split("\\s+");
 		if(weights.length != assignments.size()) {
 			throw new DataFormatException("The rubric: " + rubricWeights + " does not have a weight for every assignment, or has too many weights. This rubric will not be used to grade the students");
 		}

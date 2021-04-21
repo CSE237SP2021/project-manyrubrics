@@ -51,7 +51,7 @@ public class StudentGradeExtractor {
 	
 	private Student getNextStudent() throws DataFormatException {
 		String studentString = scanner.nextLine();
-		String[] separatedStudentString = studentString.split(" ");
+		String[] separatedStudentString = studentString.split("\\s+");
 		String studentName = separatedStudentString[0];
 		
 		if(separatedStudentString.length != assignmentList.size() + 1) {
