@@ -122,6 +122,8 @@ public class Driver {
 			e.printStackTrace();
 		} catch(DataFormatException e) {
 			System.out.println(e.getMessage());
+		} finally {
+			System.out.println("Grader finished running! Check Final_Grades.txt for results");
 		}
 	}
 	

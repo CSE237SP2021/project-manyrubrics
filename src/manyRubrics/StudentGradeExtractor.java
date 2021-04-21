@@ -37,11 +37,11 @@ public class StudentGradeExtractor {
 			assignments.add(new Assignment(assignmentName));
 		}
 		if(assignments.size() != assignmentList.size()) {
-			throw new DataFormatException();
+			throw new DataFormatException("Incorrect number of assignments in the student grade file! Try with a different file");
 		} else {
 			for(int i = 0; i < assignments.size(); ++i) {
 				if(!assignments.get(i).equals(assignmentList.get(i))) {
-					throw new DataFormatException();
+					throw new DataFormatException("Assignment " + assignments.get(i) + " does not exist in the rubrics. Cannot proceed grading.");
 				}
 			}
 		}
