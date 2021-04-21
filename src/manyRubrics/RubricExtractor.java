@@ -68,7 +68,7 @@ public class RubricExtractor {
 			}
 		}
 		if(!result.isValid()) {
-			System.out.println("The rubric: " + rubricWeights + " Has a maximum weight different from 100.\n Do you still want to use this rubric to grade the students? (Y/N):");
+			System.out.println("The rubric: " + rubricWeights + " Has a maximum weight different from 100.\nDo you still want to use this rubric to grade the students? (Y/N):");
 			Scanner readUserInput = new Scanner(System.in);
 			boolean request = true;
 			boolean stopPrompt = false;
