@@ -12,16 +12,37 @@ public class StudentGradeExtractor {
 	private List<Student> students;
 	private Scanner scanner;
 	
-	public StudentGradeExtractor(String filename, List<Assignment> assignmentList) throws FileNotFoundException {
+	public StudentGradeExtractor(String filename, List<Assignment> assignmentList) throws FileNotFoundException, DataFormatException {
 		this.students = new ArrayList<Student>();
 		this.assignmentList = assignmentList;
 		File studentFile = new File(filename);
 		scanner = new Scanner(studentFile);
-		while(scanner.hasNextLine()) {
-			try {
-				students.add(getNextStudent());
-			} catch (DataFormatException e) {
-				System.out.println(e.getMessage());
+		if(scanner.hasNextLine()) {
+			checkAssignmentList();
+			while(scanner.hasNextLine()) {
+				try {
+					students.add(getNextStudent());
+				} catch (DataFormatException e) {
+					System.out.println(e.getMessage());
+				}
+			}
+		}
+	}
+	
+	private void checkAssignmentList() throws DataFormatException {
+		String assignmentString = scanner.nextLine().trim();
+		String[] assignmentNames = assignmentString.split(" ");
+		ArrayList<Assignment> assignments = new ArrayList<Assignment>();
+		for(String assignmentName : assignmentNames) {
+			assignments.add(new Assignment(assignmentName));
+		}
+		if(assignments.size() != assignmentList.size()) {
+			throw new DataFormatException();
+		} else {
+			for(int i = 0; i < assignments.size(); ++i) {
+				if(!assignments.get(i).equals(assignmentList.get(i))) {
+					throw new DataFormatException();
+				}
 			}
 		}
 	}
