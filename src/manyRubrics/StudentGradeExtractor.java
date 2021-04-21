@@ -24,6 +24,8 @@ public class StudentGradeExtractor {
 					students.add(getNextStudent());
 				} catch (DataFormatException e) {
 					System.out.println(e.getMessage());
+				} catch (NumberFormatException e) {
+					System.out.println(e.getMessage());
 				}
 			}
 		}
@@ -59,10 +61,14 @@ public class StudentGradeExtractor {
 			Student newStudent = new Student(studentName, this.assignmentList);
 			for(int i = 0; i < this.assignmentList.size(); ++i) {
 				
-				Assignment assignmentToBeGraded = this.assignmentList.get(i);
-				double studentScore = Double.parseDouble(separatedStudentString[i+1]);
-				
-				newStudent.addScoreToAssignment(assignmentToBeGraded, studentScore);
+				try {
+					Assignment assignmentToBeGraded = this.assignmentList.get(i);
+					double studentScore = Double.parseDouble(separatedStudentString[i+1]);
+					
+					newStudent.addScoreToAssignment(assignmentToBeGraded, studentScore);					
+				} catch (NumberFormatException e) { // rethrow a new exception with an application specific error message
+					throw new NumberFormatException("score: " + separatedStudentString[i+1] + " for student: " + studentName + " could not be interpreted as a valid score. This student will not be graded");
+				}
 			}
 			return newStudent;
 		}

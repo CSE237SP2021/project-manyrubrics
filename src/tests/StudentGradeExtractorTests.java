@@ -23,9 +23,9 @@ class StudentGradeExtractorTests {
 	void testExtractStudentGradesGoodFile() {
 		RubricExtractor rubricExtractor;
 		try {
-			rubricExtractor = new RubricExtractor("rubricTestFile.txt");
+			rubricExtractor = new RubricExtractor("testfiles/rubricTestFile.txt");
 			List<Assignment> assignmentList = rubricExtractor.getAssignmentList();
-			StudentGradeExtractor gradeExtractor = new StudentGradeExtractor("scoreTestfile.txt", assignmentList);
+			StudentGradeExtractor gradeExtractor = new StudentGradeExtractor("testfiles/scoreTestfile.txt", assignmentList);
 			List<Student> students = gradeExtractor.getStudentList();
 			
 			for(Student student : students) {
@@ -48,9 +48,9 @@ class StudentGradeExtractorTests {
 		// exception because it cannot extract any assignment grades for the students
 		assertThrows(DataFormatException.class, () -> {
 			RubricExtractor rubricExtractor;
-			rubricExtractor = new RubricExtractor("rubricTestFile.txt");
+			rubricExtractor = new RubricExtractor("testfiles/rubricTestFile.txt");
 			List<Assignment> assignmentList = rubricExtractor.getAssignmentList();
-			StudentGradeExtractor gradeExtractor = new StudentGradeExtractor("incorrectAssignmentList.txt", assignmentList);
+			StudentGradeExtractor gradeExtractor = new StudentGradeExtractor("testfiles/incorrectAssignmentList.txt", assignmentList);
 
 		}); 
 	}
@@ -68,12 +68,45 @@ class StudentGradeExtractorTests {
 		
 		RubricExtractor rubricExtractor;
 		try {
-			rubricExtractor = new RubricExtractor("rubricTestFile.txt");
+			rubricExtractor = new RubricExtractor("testfiles/rubricTestFile.txt");
 			List<Assignment> assignmentList = rubricExtractor.getAssignmentList();
-			StudentGradeExtractor gradeExtractor = new StudentGradeExtractor("incorrectStudentGrades.txt", assignmentList);
+			StudentGradeExtractor gradeExtractor = new StudentGradeExtractor("testfiles/incorrectStudentGrades.txt", assignmentList);
 			String errorMsg = capturedOut.toString();
 
 			assertEquals(errorMsg.trim(), "Sam_McGarey had grades for the wrong number of assignments. This student will not be graded.");
+			
+			List<Student> students = gradeExtractor.getStudentList();
+			
+			for(Student student : students) {
+				for(Assignment assignment : assignmentList) {
+					assertEquals(100, student.getScoreForAssignment(assignment));
+				}
+			}
+		} catch (FileNotFoundException e) {
+			fail("a test file was not found");
+		} catch (DataFormatException e) {
+			fail(e.getMessage());
+		} finally {
+			//restore sysout
+			System.setOut(stdOut);
+		}
+	}
+	
+	@Test
+	void testExtractStudentGradesRecoversForMalformedStudentGrade() {
+		// capture systemOut:
+		ByteArrayOutputStream capturedOut = new ByteArrayOutputStream();
+		PrintStream stdOut = System.out;
+		System.setOut(new PrintStream(capturedOut));
+		
+		RubricExtractor rubricExtractor;
+		try {
+			rubricExtractor = new RubricExtractor("testfiles/rubricTestFile.txt");
+			List<Assignment> assignmentList = rubricExtractor.getAssignmentList();
+			StudentGradeExtractor gradeExtractor = new StudentGradeExtractor("testfiles/malformedStudentGrade.txt", assignmentList);
+			String errorMsg = capturedOut.toString();
+
+			assertEquals(errorMsg.trim(), "score: fred for student: Sam_McGarey could not be interpreted as a valid score. This student will not be graded");
 			
 			List<Student> students = gradeExtractor.getStudentList();
 			

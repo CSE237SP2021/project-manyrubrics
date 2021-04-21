@@ -22,7 +22,7 @@ class RubricExtractorTests {
 		RubricExtractor extractor;
 		List<Assignment> assignments;
 		try {
-			extractor = new RubricExtractor("rubricTestfile.txt");
+			extractor = new RubricExtractor("testfiles/rubricTestfile.txt");
 			assignments = extractor.getAssignmentList();
 			for(Assignment assignment : assignments) {
 				assertTrue(assignment.name().equals("testAssignment"));
@@ -42,7 +42,7 @@ class RubricExtractorTests {
 	void testRubricExtractorReadsAllRubrics() {
 		RubricExtractor extractor;
 		try {
-			extractor = new RubricExtractor("rubricTestfile.txt");
+			extractor = new RubricExtractor("testfiles/rubricTestfile.txt");
 			Student student = new Student("test", extractor.getAssignmentList());
 			for(Assignment assignment : extractor.getAssignmentList()) {
 				student.addScoreToAssignment(assignment, 100);
@@ -62,7 +62,7 @@ class RubricExtractorTests {
 	@Test
 	void testRubricExtractorFailsWithNoAssignmentList(){
 		Exception e = assertThrows(DataFormatException.class, () -> {
-			RubricExtractor extractor = new RubricExtractor("noAssignments.txt");
+			RubricExtractor extractor = new RubricExtractor("testfiles/noAssignments.txt");
 		});
 		assertEquals(e.getMessage(), "The rubric file must contain a list of space-separated assignments that are not interpretable as weights. add one and try again");
 	}
@@ -70,7 +70,7 @@ class RubricExtractorTests {
 	@Test
 	void testRubricExtractorFailsWithNoRubricsProvided(){
 		Exception e = assertThrows(DataFormatException.class, () -> {
-			RubricExtractor extractor = new RubricExtractor("noRubrics.txt");
+			RubricExtractor extractor = new RubricExtractor("testfiles/noRubrics.txt");
 		});
 		assertEquals(e.getMessage(), "No valid rubrics were read from the file. Please include at least one valid rubric and try again");
 	}
@@ -85,7 +85,7 @@ class RubricExtractorTests {
 		
 		RubricExtractor extractor;
 		try {
-			extractor = new RubricExtractor("rubricTooFewTestfile.txt");
+			extractor = new RubricExtractor("testfiles/rubricTooFewTestfile.txt");
 			
 			assertEquals(capturedOut.toString().trim(), "The rubric: 50 does not have a weight for every assignment, or has too many weights. This rubric will not be used to grade the students");
 			assertEquals(extractor.getRubricList().size(), 1);
@@ -108,7 +108,7 @@ class RubricExtractorTests {
 		
 		RubricExtractor extractor;
 		try {
-			extractor = new RubricExtractor("rubricMalformedInputTestfile.txt");
+			extractor = new RubricExtractor("testfiles/rubricMalformedInputTestfile.txt");
 			
 			assertEquals(capturedOut.toString().trim(), "Assignment weight fred in rubric 30 fred cannot be converted to an appropriate value. This rubric will not be used to grade the students");
 			assertEquals(extractor.getRubricList().size(), 1);
