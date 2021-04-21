@@ -74,7 +74,7 @@ class RubricExtractorTests {
 		Exception e = assertThrows(DataFormatException.class, () -> {
 			RubricExtractor extractor = new RubricExtractor("testfiles/noAssignments.txt");
 		});
-		assertEquals(e.getMessage(), "The rubric file must contain a list of space-separated assignments that are not interpretable as weights. add one and try again");
+		assertEquals(e.getMessage(), "The rubric file must contain a list of whitespace separated assignments that are not interpretable as weights. add one and try again");
 	}
 	
 	/*

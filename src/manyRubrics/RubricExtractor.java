@@ -24,7 +24,7 @@ public class RubricExtractor {
 		if(scanner.hasNextLine()) {
 			extractAssignmentList();
 		} else {
-			throw new DataFormatException("The rubric file must contain a list of space-separated assignments that are not interpretable as weights. add one and try again");
+			throw new DataFormatException("The rubric file must contain a list of whitespace separated assignments that are not interpretable as weights. add one and try again");
 		}
 		// then go through every remaining row and extract the weights of the assignments
 		while(scanner.hasNextLine()) {
@@ -46,7 +46,7 @@ public class RubricExtractor {
 		String[] assignmentNames = assignmentString.split(" ");
 		for(String assignmentName : assignmentNames) {
 			if(assignmentName.matches("^\\d+$")) {
-				throw new DataFormatException("The rubric file must contain a list of space-separated assignments that are not interpretable as weights. add one and try again");
+				throw new DataFormatException("The rubric file must contain a list of whitespace separated assignments that are not interpretable as weights. add one and try again");
 			}
 			assignments.add(new Assignment(assignmentName));
 		}
