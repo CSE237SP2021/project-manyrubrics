@@ -23,7 +23,7 @@ class StudentGradeExtractorTests {
 	void testExtractStudentGradesGoodFile() {
 		RubricExtractor rubricExtractor;
 		try {
-			rubricExtractor = new RubricExtractor("testfile.txt");
+			rubricExtractor = new RubricExtractor("rubricTestFile.txt");
 			List<Assignment> assignmentList = rubricExtractor.getAssignmentList();
 			StudentGradeExtractor gradeExtractor = new StudentGradeExtractor("scoreTestfile.txt", assignmentList);
 			List<Student> students = gradeExtractor.getStudentList();
@@ -44,20 +44,21 @@ class StudentGradeExtractorTests {
 	
 	@Test
 	void testExtractStudentGradesIncorrectNumberOfAssignments() {
-		RubricExtractor rubricExtractor;
-		try {
-			rubricExtractor = new RubricExtractor("testfile.txt");
+		// with an incorrect number of assignments in the student file, the gradeExtractor should just throw an
+		// exception because it cannot extract any assignment grades for the students
+		assertThrows(DataFormatException.class, () -> {
+			RubricExtractor rubricExtractor;
+			rubricExtractor = new RubricExtractor("rubricTestFile.txt");
 			List<Assignment> assignmentList = rubricExtractor.getAssignmentList();
-			
-			assertThrows(DataFormatException.class, () -> {
-				StudentGradeExtractor gradeExtractor = new StudentGradeExtractor("incorrectAssignmentList.txt", assignmentList);
+			StudentGradeExtractor gradeExtractor = new StudentGradeExtractor("incorrectAssignmentList.txt", assignmentList);
 
-			});
-		} catch (FileNotFoundException e) {
-			fail("a test file was not found");
-		} 
+		}); 
 	}
 	
+	/*
+	 * If an individual student in the student file has the wrong number of grades, the program should just skip
+	 * over that student and save the other students
+	 */
 	@Test
 	void testExtractStudentGradesRecoversForIncorrectNumberOfStudentGrades() {
 		// capture systemOut:
@@ -67,7 +68,7 @@ class StudentGradeExtractorTests {
 		
 		RubricExtractor rubricExtractor;
 		try {
-			rubricExtractor = new RubricExtractor("testfile.txt");
+			rubricExtractor = new RubricExtractor("rubricTestFile.txt");
 			List<Assignment> assignmentList = rubricExtractor.getAssignmentList();
 			StudentGradeExtractor gradeExtractor = new StudentGradeExtractor("incorrectStudentGrades.txt", assignmentList);
 			String errorMsg = capturedOut.toString();

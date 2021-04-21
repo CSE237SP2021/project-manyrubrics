@@ -116,15 +116,14 @@ public class Driver {
 			List<Assignment> assignmentList = rubricExtractor.getAssignmentList();
 			StudentGradeExtractor gradeExtractor = new StudentGradeExtractor(args[studentFile], assignmentList);
 			writeToFile(gradeExtractor.getStudentList(), rubricExtractor.getRubricList());
+			System.out.println("Grader finished running! Check Final_Grades.txt for results");
 		} catch(FileNotFoundException e) {
 			e.printStackTrace();
 		} catch(IOException e) {
 			e.printStackTrace();
 		} catch(DataFormatException e) {
 			System.out.println(e.getMessage());
-		} finally {
-			System.out.println("Grader finished running! Check Final_Grades.txt for results");
-		}
+		} 
 	}
 	
 	public static void writeToFile(List<Student> students, List<Rubric> rubrics) throws IOException {
