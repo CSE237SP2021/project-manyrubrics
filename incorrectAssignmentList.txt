@@ -1,0 +1,5 @@
+			testAssignment
+Sam_McGarey 100 100
+Angelica_Harris 100 100
+Brandon_Li 100 100
+Zach_McMillen 100 100
