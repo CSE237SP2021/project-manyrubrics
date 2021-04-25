@@ -8,11 +8,10 @@ import java.util.Scanner;
 
 public class Driver {
 	
-	final static int programName = 0;
-	final static int inputMode = 1;
-	final static int rubricFile = 2;
-	final static int studentFile = 3;
-	final static int fileModeArgs = 4;
+	final static int inputModeArgs = 1;
+	final static int rubricFile = 1;
+	final static int studentFile = 2;
+	final static int fileModeArgs = 3;
 	final static String manualMode = "-m";
 	final static String fileMode = "-f";
 	
@@ -22,6 +21,7 @@ public class Driver {
 		for (Entry<Assignment, Double> entry : student.assignments().entrySet()) {
 			System.out.println("Enter " + student.name() + "'s Score for assignment: " + entry.getKey().name());
 			score = input.nextDouble();
+			input.nextLine();
 			student.addScoreToAssignment(entry.getKey(), score);
 		}
 		input.close();
@@ -33,22 +33,32 @@ public class Driver {
 		for (Entry<Assignment, Integer> entry : rubric.assignments().entrySet()) {
 			System.out.println("Enter " + rubric.name() + "'s Weight for assignment: " + entry.getKey().name());
 			weight = input.nextInt();
+			input.nextLine();
 			rubric.setAssignmentWeight(entry.getKey(), weight);
 		}
 		input.close();
 	}
 	
-	public static void addAssignment(List<Rubric> rubrics, List<Student> students, List<Assignment> assignments){
+	public static void assignmentEntry(List<Assignment> assignments) {
 		Scanner input = new Scanner(System.in);
-        System.out.println("Assignment Name to Add: ");
-        String name = input.nextLine();
-        System.out.println("Max score for Assignment: ");
-        int maxScore = input.nextInt();
-        input.close();
-        Assignment assignment = new Assignment(name, maxScore);
-        assignments.add(assignment);
-        //Update Students and Rubrics
-
+		String name, choice;
+		int maxScore;
+		boolean quit = false;
+		while(!quit){
+			System.out.println("Assignment Name to Add: ");
+	        name = input.nextLine();
+	        System.out.println("Max score for " + name);
+	        maxScore = input.nextInt();
+	        input.nextLine();
+	        Assignment assignment = new Assignment(name, maxScore);
+	        assignments.add(assignment);
+	        System.out.println("Enter 'c' to add another Assignment Or 'q' to stop)");
+	        choice = input.nextLine();
+	        if(choice.equals("q")) {
+	        	quit = true;
+	        }
+		}
+		input.close();
 	}
 	
 	public static void addStudent(List<Student> students, List<Assignment> assignments){
@@ -71,16 +81,6 @@ public class Driver {
         rubrics.add(rubric);
 	}
 	
-	public static void listAssignments(List<Assignment> assignments){
-		if(!assignments.isEmpty()) {
-			for(int i = 0; i < assignments.size(); i++) {
-				System.out.println(assignments.get(i).name());
-			}
-		}else {
-			System.out.println("There are no Assignments");
-		}
-	}
-	
 	public static void listStudents(List<Student> students){
 		if(!students.isEmpty()) {
 			for(int i = 0; i < students.size(); i++) {
@@ -101,33 +101,13 @@ public class Driver {
 		}
 	}
 	
-	public static void deleteAssignment(List<Rubric> rubrics, List<Student> students, List<Assignment> assignments){
-        Scanner input = new Scanner(System.in);
-        String name = input.nextLine();
-        input.close();
-        if(!assignments.isEmpty()) {
-        	for(int i = 0; i < assignments.size(); i++) {
-				if(assignments.get(i).name()==name) {
-					assignments.remove(i);
-					System.out.println(name + " Successfully Deleted");
-					//Update Students and Rubrics
-
-					return;
-				}
-			}
-        	System.out.println(name + " is not an assignment");
-        }else {
-			System.out.println("There are no Assignments");       	
-        }
-	}
-	
-	public static void deleteStudent(List<Student> students){
+	public static void removeStudent(List<Student> students){
 		Scanner input = new Scanner(System.in);
         String name = input.nextLine();
         input.close();
         if(!students.isEmpty()) {
         	for(int i = 0; i < students.size(); i++) {
-				if(students.get(i).name()==name) {
+				if(students.get(i).name().equals(name)) {
 					students.remove(i);
 					System.out.println(name + " Successfully Deleted");
 					return;
@@ -139,13 +119,13 @@ public class Driver {
         }
 	}
 	 
-	public static void deleteRubric(List<Rubric> rubrics){
+	public static void removeRubric(List<Rubric> rubrics){
 		Scanner input = new Scanner(System.in);
         String name = input.nextLine();
         input.close();
         if(!rubrics.isEmpty()) {
         	for(int i = 0; i < rubrics.size(); i++) {
-				if(rubrics.get(i).name()==name) {
+				if(rubrics.get(i).name().equals(name)) {
 					rubrics.remove(i);
 					System.out.println(name + " Successfully Deleted");
 					return;
@@ -197,68 +177,69 @@ public class Driver {
         System.out.println(studentName + " Has a Grade of: " + grade);
 	}
 	
-	public static void manualMode(){
-		//Manual entry mode in while loop
-		boolean exit = false;
-        Scanner input = new Scanner(System.in);
-        List<Assignment> assignments = new ArrayList<Assignment>();
+	
+	public static void manualMode() {
+        int choice = 0;
+		boolean quit = false;
+
+		List<Assignment> assignments = new ArrayList<Assignment>();
         List<Rubric> rubrics = new ArrayList<Rubric>();
         List<Student> students = new ArrayList<Student>();
         
-		int choice;
-		while(!exit) {
-			System.out.println("1. Add an Assignment");
-			System.out.println("2. Add a Student");
-			System.out.println("3. Add a Rubric");
-			System.out.println("4. List Assignments");
-			System.out.println("5. List Students");
-			System.out.println("6. List Rubrics");
-			System.out.println("7. Delete an Assignment");
-			System.out.println("8. Delete a Student");
-			System.out.println("9. Delete a Rubric");
-			System.out.println("10. Calculate Grade");
+		System.out.println("Before proceeding to rubric creation and grading, please input all asignments");
+		assignmentEntry(assignments);
+        Scanner input = new Scanner(System.in);
+		while(!quit) {
+			System.out.println("1. Add a Student");
+			System.out.println("2. List Students");
+			System.out.println("3. Remove a Student");
+			
+			System.out.println("4. Add a Rubric");
+			System.out.println("5. List Rubrics");
+			System.out.println("6. Remove a Rubric");
+			
+			System.out.println("7. Calculate Grade");
 			System.out.println("0. Exit");
 			choice = input.nextInt();
-			switch(choice) {
-			case 1:
-				addAssignment(rubrics,students,assignments);
-				break;
-			case 2:
-				addStudent(students, assignments);
-				break;
-			case 3:
-				addRubric(rubrics, assignments);
-				break;
-			case 4:
-				listAssignments(assignments);
-				break;
-			case 5:
-				listStudents(students);
-				break;
-			case 6:
-				listRubrics(rubrics);
-				break;
-			case 7:
-				deleteAssignment(rubrics,students,assignments);
-				break;
-			case 8:
-				deleteStudent(students);
-				break;
-			case 9:
-				deleteRubric(rubrics);
-				break;
-			case 10:
-				calculateGrade(rubrics,students,assignments);
-				break;
-			case 0:
-				exit = true;
-				break;
-			default:
-				break;
+			input.nextLine();			
+			if(choice == 0) {
+				quit = true;
+			} else {
+				manualChoice(choice, rubrics, students, assignments);
 			}
 		}
 		input.close();
 	}
+
+	public static void manualChoice(int choice, List<Rubric> rubrics, List<Student> students, List<Assignment> assignments) {
+		System.out.println(choice);
+		switch(choice) {
+			case 1:
+				addStudent(students, assignments);				
+				break;
+			case 2:
+				listStudents(students);
+				break;
+			case 3:
+				removeStudent(students);
+				break;
+			case 4:
+				addRubric(rubrics, assignments);
+				break;
+			case 5:
+				listRubrics(rubrics);
+				break;
+			case 6:
+				removeRubric(rubrics);
+				break;
+			case 7:
+				calculateGrade(rubrics,students,assignments);
+				break;
+			default:
+				break;
+		}
+	}
+	
 	
 	public static void fileMode(String[] args){
 		try{
@@ -270,40 +251,42 @@ public class Driver {
 		}
 	}
 	
-	public static void fileModeUsage(String programName) {
-		System.out.println(programName + "-f <rubricFile> <studentFile> Usage:");
+	public static void fileModeUsage() {
+		System.out.println("-f <rubricFile> <studentFile> Usage:");
 		System.out.println("<rubricFile>: Text file holding rubric information");
 		System.out.println("<studentFile>: Text file holding student information");
 	}
 	
-	public static void progamUsage(String programName){
-		System.out.println(programName + " Usage:");
-		System.out.println(programName + " -m: Runs program in manual entry mode");
-		System.out.println(programName + " -f: Displays usage for file entry mode");
-		System.out.println(programName + " -f <rubricFile> <studentFile>: "
+	
+	public static void progamUsage(){
+		System.out.println("Usage:");
+		System.out.println("-m: Runs program in manual entry mode");
+		System.out.println("-f: Displays usage for file entry mode");
+		System.out.println("-f <rubricFile> <studentFile>: "
 				+ "Runs program in file entry mode with <rubricFile> as rubric file and <studentFile> student file");
 	}
 	
+	
+	public static void inputMode(String[] args) {
+		System.out.println(args[inputModeArgs-1]);
+		if(args[inputModeArgs-1].equals(manualMode)) {
+			manualMode();
+		}else if(args[inputModeArgs-1].equals(fileMode)) {
+			fileModeUsage();
+		}else {
+			progamUsage();
+		}
+	}
+	
 	public static void main(String[] args) {
-		int numArgs = args.length-1;
+		int numArgs = args.length;
+		System.out.println(numArgs);
 		switch(numArgs) {
-		case programName:
-			progamUsage(args[programName]);
-			break;
-		case inputMode:
-			if(args[inputMode]==manualMode) {
-				manualMode();
-			}else if(args[inputMode]==fileMode) {
-				fileModeUsage(args[programName]);
-			}else {
-				progamUsage(args[programName]);
-			}
+		case inputModeArgs:
+			inputMode(args);
 			break;
 		case fileModeArgs:
 			fileMode(args);
-			break;
-		default:
-			progamUsage(args[programName]);
 			break;
 		}
 	}
