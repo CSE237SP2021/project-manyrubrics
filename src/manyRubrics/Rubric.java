@@ -14,7 +14,6 @@ public class Rubric {
 	public Rubric(List<Assignment> assignments) {
 		this.assignmentsToWeights = new HashMap<Assignment, Integer>();
 		this.passedInAssignments = assignments;
-		
 		// most classes have a maximum score of 100, so the constructor that does not specify a different max score defaults
 		// to 100;
 		this.maximumWeight = 100;
