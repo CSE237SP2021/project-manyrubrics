@@ -27,22 +27,22 @@ public class Driver {
 		int numArgs = args.length;
 		switch(numArgs) {
 		case noInput:		
-			progamUsage("Driver");
+			progamUsage("./run.sh");
 			break;
 		case justMode:
 			if(args[programMode]==manualMode) {
 				manualMode();
 			}else if(args[programMode]==fileMode) {
-				fileModeUsage("Driver");
+				fileModeUsage("./run.sh");
 			}else {
-				progamUsage("Driver");
+				progamUsage("./run.sh");
 			}
 			break;
 		case fileModeArgs:
 			fileMode(args);				
 			break;
 		default:
-			progamUsage("Driver");
+			progamUsage("./run.sh");
 			break;
 		}
 	}
