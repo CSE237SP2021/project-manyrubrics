@@ -64,6 +64,6 @@ to use the program in manual mode, or type
     ./run.sh -f &lt;rubricFile&gt; &lt;scoreFile&gt;
 to run the program in file mode, which produces an output file called Final_Grades.txt.
 The formatting of the rubric files is: the first line is a list of one word assignment names, and all the following lines are list of integers, one for each assignment that sum to 100.
-The formatting of the score files is: the first line is the same list of assignments used in the rubric file, and all the following lines are a one word student name followed by a list of integers that represent the student scores on each assignment.
+The formatting of the score files is: the first line is the same list of assignments used in the rubric file, and all the following lines are a one word student name followed by a list of integers that represent the student scores on each assignment. To see some example rubric and score files you can view the files in the testfiles folder, although be warned most of these files are poorly formatted (as they are used in unit tests that test for behavior under bad formatting).
 
 - to run "8.RankStudents" inside the manual mode: Step 1, create assignment(s). Two, create multiple students. Three, add an assignment(s) to your rubric (the one(s) completed in step 1). Finally, type '8' and type in the rubric that you created in step 3. 
