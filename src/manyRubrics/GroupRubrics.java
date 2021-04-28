@@ -8,9 +8,9 @@ import java.util.Map;
 public class GroupRubrics {
 
 	//Name for which class these rubrics are for
-	private ArrayList<Rubric> classRubric;
+	private List<Rubric> classRubric;
 	
-	public GroupRubrics (ArrayList<Rubric> rubricsToBeGrouped) {
+	public GroupRubrics (List<Rubric> rubricsToBeGrouped) {
 		
 		this.classRubric = rubricsToBeGrouped;
 		
