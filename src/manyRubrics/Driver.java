@@ -1,10 +1,14 @@
 package manyRubrics;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Scanner;
+import java.util.zip.DataFormatException;
 
 public class Driver {
 	
@@ -252,9 +256,30 @@ public class Driver {
 			RubricExtractor rubricExtractor = new RubricExtractor(args[rubricFile]);
 			List<Assignment> assignmentList = rubricExtractor.getAssignmentList();
 			StudentGradeExtractor gradeExtractor = new StudentGradeExtractor(args[studentFile], assignmentList);
+			writeToFile(gradeExtractor.getStudentList(), rubricExtractor.getRubricList());
+			System.out.println("Grader finished running! Check Final_Grades.txt for results");
 		}catch(FileNotFoundException e) {
-			
+			System.out.println("One of " + args[rubricFile] + " or " +  args[studentFile] + " does not exist");
+		}catch(IOException e) {
+			e.printStackTrace();
+		}catch (DataFormatException e) {
+			System.out.println(e.getMessage());
 		}
+	}
+	
+	public static void writeToFile(List<Student> students, List<Rubric> rubrics) throws IOException {
+		GroupRubrics grader = new GroupRubrics(rubrics);
+		File outfile = new File("Final_Grades.txt");
+		StringBuilder finalGrades = new StringBuilder();
+		for(Student student : students) {
+			finalGrades.append(student.name());
+			finalGrades.append(": ");
+			finalGrades.append(grader.bestGrade(student));
+			finalGrades.append('\n');
+		}
+		FileWriter writer = new FileWriter(outfile);
+		writer.write(finalGrades.toString());
+		writer.close();
 	}
 	
 	public static void fileModeUsage() {
@@ -272,7 +297,6 @@ public class Driver {
 	}
 	
 	public static void inputMode(String[] args) {
-		System.out.println(args[inputModeArgs-1]);
 		if(args[inputModeArgs-1].equals(manualMode)) {
 			manualMode();
 		}else if(args[inputModeArgs-1].equals(fileMode)) {
@@ -284,7 +308,6 @@ public class Driver {
 	
 	public static void main(String[] args) {
 		int numArgs = args.length;
-		System.out.println(numArgs);
 		switch(numArgs) {
 		case inputModeArgs:
 			inputMode(args);
