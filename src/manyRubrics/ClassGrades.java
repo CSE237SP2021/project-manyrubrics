@@ -7,9 +7,7 @@ import java.util.Map;
 public class ClassGrades {
 	
 	private List<Student> studentList;
-	private Rubric classRubric;
-	
-	//Contains list of students associated with the passed in class
+	private Rubric classRubric;	
 	
 	public ClassGrades (List<Student> students, Rubric rubricForClass) {
 		this.studentList = students;

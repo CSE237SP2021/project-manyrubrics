@@ -5,8 +5,6 @@ import java.util.List;
 
 public class RankingStudents {
 
-	//list of students 
-	//sort students based on calculated grades
 	private List<Student>listOfStudents;
 	private Rubric rubric;
 	

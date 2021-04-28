@@ -7,11 +7,7 @@ public class GroupRubrics {
 	private List<Rubric> classRubric;
 
 	public GroupRubrics (List<Rubric> rubricsToBeGrouped) {
-		
-
 		this.classRubric = rubricsToBeGrouped;
-	
-		
 	}
 	
 
@@ -28,5 +24,4 @@ public class GroupRubrics {
 		return highestGrade;
 	}
 	
-
 }
