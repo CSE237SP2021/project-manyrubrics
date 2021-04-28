@@ -61,7 +61,7 @@ you can also create your own rubric files and student files. A rubric file will 
 - the usage of ./run.sh is as follows: type
     ./run.sh -m
 to use the program in manual mode, or type
-    ./run.sh -f <rubricFile> <scoreFile>
+    ./run.sh -f &lt;rubricFile&rt; &lt;scoreFile&rt;
 to run the program in file mode, which produces an output file called Final_Grades.txt.
 The formatting of the rubric files is: the first line is a list of one word assignment names, and all the following lines are list of integers, one for each assignment that sum to 100.
 The formatting of the score files is: the first line is the same list of assignments used in the rubric file, and all the following lines are a one word student name followed by a list of integers that represent the student scores on each assignment.
