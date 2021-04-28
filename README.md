@@ -62,7 +62,7 @@ you can also create your own rubric files and student files. A rubric file will 
 - Potential edge cases could have been added to make the UI more effective
 
 ### What commands are needed to compile and run your code from the command line?
-- To run the program, right click on the "DriverTest.java", select "Run As" -> select "Run Configuarations" -> set "Arguments"-> set program arguments inside of textbox to "-m"-> Press apply and close. Next, go to the top green run arrow at the top of your eclipse, select the drop down black arrow -> click "Driver"JClass. The program will start in your console.   
+- To run the program, right click on the "DriverTest.java", select "Run As" -> select "Run Configurations" -> set "Arguments"-> set program arguments inside of textbox to "-m"-> Press apply and close. Next, go to the top green run arrow at the top of your eclipse, select the drop down black arrow -> click "Driver"JClass. The program will start in your console.   
 - Alternatively, from the command line you can type ./run.sh followed by the command line arguments you want to use for the program to use our script.
 - The usage of ./run.sh is as follows: type
     ./run.sh -m
