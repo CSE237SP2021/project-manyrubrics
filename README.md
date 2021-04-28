@@ -30,13 +30,16 @@ Our project is a Java Command Line Application which allows teachers and student
 - A student should be able to test what grade they will receive in a class by putting in their scores.
 - A teacher should be able to group rubrics together
 - The program should provide usage info when run incorrectly
+
 ### What user stories do you intend to complete next iteration?
 - A teacher can produce grades for different classes
 - A student should be able to test what grade they will receive in a class by putting in their scores
 - A teacher should be able to create new assignments
 - Is there anything that you implemented but doesn't currently work?
+
 ### We have an unimplemented unit test for our user interface class because we are uncertain if we need any unit tests for the menu
 - The code for the manual mode has been written but currently our menu does not support the manual mode yet, since we have not had time to test it (see above)
+
 ### What commands are needed to compile and run your code from the command line?
 - simply run ./run.sh
 - Running this will run the program, you can use -f testfile.txt scoreTestfile.txt to see an example output
@@ -48,12 +51,14 @@ you can also create your own rubric files and student files. A rubric file will 
 ### What user stories were completed this iteration?
 - A user can rank the students by their grades
 - Program is more robust to bad user input
+- Unnecessary unit tests were removed
+- Large unit tests were reformatted
 
 ### What user stories do you intend to complete next iteration?
 - N/A
 
 ### Is there anything that you implemented but doesn't currently work?
-- edge cases could have been added to make the UI more effective
+- Potential edge cases could have been added to make the UI more effective
 
 ### What commands are needed to compile and run your code from the command line?
 - To run the program, right click on the "DriverTest.java", select "Run As" -> select "Run Configuarations" -> set "Arguments"-> set program arguments inside of textbox to "-m"-> press apply and close. Next, go to the top green run arrow at the top of your eclipse, select the drop down black arrow -> click "Driver"JClass. The program will start in your console.   
