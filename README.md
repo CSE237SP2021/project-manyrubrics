@@ -56,7 +56,7 @@ you can also create your own rubric files and student files. A rubric file will 
 - edge cases could have been added to make the UI more effective
 
 ### What commands are needed to compile and run your code from the command line?
-- To run the program, right click on the "DriverTest.java", select "Run As" -> select "Run Configuarations" -> set "Arguments"-> set program arguments inside of textbox to "-m -m"-> press apply and close. Next, go to the top green run arrow at the top of your eclipse, select the drop down black arrow -> click "Driver"JClass. The program will start in your console.   
+- To run the program, right click on the "DriverTest.java", select "Run As" -> select "Run Configuarations" -> set "Arguments"-> set program arguments inside of textbox to "-m"-> press apply and close. Next, go to the top green run arrow at the top of your eclipse, select the drop down black arrow -> click "Driver"JClass. The program will start in your console.   
 
 - to run "11.RankStudents". Step 1, type '1' , this creates 1 assignment. Two, type '2' to create multiple students. Three, type '3' add an assignment to your rubric (that you completed in step 1). Finally, type '11' and type in the rubric that you created in step 3. 
 
