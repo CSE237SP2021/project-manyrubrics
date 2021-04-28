@@ -4,12 +4,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 import manyRubrics.Assignment;
 import manyRubrics.Rubric;
 import manyRubrics.Student;
+import manyRubrics.RankingStudents;
 
 public class rankingStudentTests {
 
@@ -47,5 +49,16 @@ public class rankingStudentTests {
 		students.add(student2);
 		students.add(student3);
 		students.add(student4);
+	
+		RankingStudents rankingStudents= new RankingStudents(students,rubricUnderTest);
+		ArrayList<Student> correctRank = new ArrayList<Student>();
+		correctRank.add(student2);
+		correctRank.add(student3);
+		correctRank.add(student1);
+		correctRank.add(student4);
+		
+		List<Student>rank = rankingStudents.RankStudent();
+		assertEquals(correctRank,rank);
+		
 	}
 }

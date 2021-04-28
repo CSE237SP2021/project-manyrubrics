@@ -3,14 +3,14 @@ package manyRubrics;
 import java.util.Collections;
 import java.util.List;
 
-public class rankingStudents {
+public class RankingStudents {
 
 	//list of students 
 	//sort students based on calculated grades
 	private List<Student>listOfStudents;
 	private Rubric rubric;
 	
-	public rankingStudents(List<Student> listOfStudents,Rubric rubric) {
+	public RankingStudents(List<Student> listOfStudents,Rubric rubric) {
 		this.listOfStudents =  listOfStudents;
 		this.rubric = rubric; 
 	}
