@@ -315,6 +315,8 @@ public class Driver {
 		case fileModeArgs:
 			fileMode(args);
 			break;
+		default:
+			progamUsage();
 		}
 		input.close();
 	}
