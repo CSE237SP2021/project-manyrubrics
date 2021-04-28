@@ -150,6 +150,56 @@ public class Driver {
         	System.out.println(students.get(student).name() + " Has a Grade of: " + grade);
         }
 	}
+	
+	public static void rankStudents(List<Rubric> rubrics, List<Student> listOfStudents) {
+		System.out.println("Rubric Name to Use: ");
+		String rubricName = input.nextLine();
+		//List<Student>listCopy = new ArrayList<Student>();
+		double grade = -1;
+		if (!rubrics.isEmpty()) {
+			for (int i = 0; i < rubrics.size(); i++) {
+				if (rubrics.get(i).name().equals(rubricName)) {
+					RankingStudents rankStudents = new RankingStudents(listOfStudents,rubrics.get(i));
+					listOfStudents = rankStudents.RankStudent();
+					
+				}
+			}
+		}
+		else {
+			System.out.println("There are no Rubrics");
+			return;
+		}
+		String name ="";
+		for(int i =0; i<listOfStudents.size();i++) {
+			if(i==listOfStudents.size()-1) {
+				 name += listOfStudents.get(i).name();
+			}
+			else {
+				 name += listOfStudents.get(i).name() + ", ";
+			}
+			
+		}
+		System.out.println("The order of the ranked students: " + name);
+		System.out.println("");
+	}
+	}
+	
+	public static void removeRubric(List<Rubric> rubrics){
+		int rubric = findRubric(rubrics);
+        if(rubric!=-1){
+        	rubrics.remove(rubric);
+        	System.out.println("Rubric successfully removed");
+        }
+	}
+	
+	public static void calculateGrade(List<Rubric> rubrics, List<Student> students, List<Assignment> assignments){
+		int student = findStudent(students);
+		int rubric = findRubric(rubrics);  
+        if(student != -1 && rubric != -1 ) {
+        	double grade = rubrics.get(rubric).computeScoreForStudent(students.get(student));
+        	System.out.println(students.get(student).name() + " Has a Grade of: " + grade);
+        }
+	}
     
 	public static void manualMode() {
         int choice = 0;
@@ -171,6 +221,8 @@ public class Driver {
 			System.out.println("6. Remove a Rubric");
 			
 			System.out.println("7. Calculate Grade");
+
+			System.out.println("8. Rank Students by Grade");
 			System.out.println("0. Exit");
 			choice = input.nextInt();
 			input.nextLine();			
@@ -205,6 +257,9 @@ public class Driver {
 				break;
 			case 7:
 				calculateGrade(rubrics,students,assignments);
+				break;
+			case 8: 
+				rankStudents(rubrics, students);
 				break;
 			default:
 				break;
