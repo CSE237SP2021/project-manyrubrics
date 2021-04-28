@@ -50,6 +50,7 @@ you can also create your own rubric files and student files. A rubric file will 
 
 ### What user stories were completed this iteration?
 - A user can rank the students by their grades
+- A teacher can produce grades for different classes
 - Program is more robust to bad user input
 - Unnecessary unit tests were removed
 - Large unit tests were reformatted
