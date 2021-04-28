@@ -182,24 +182,6 @@ public class Driver {
 		System.out.println("The order of the ranked students: " + name);
 		System.out.println("");
 	}
-	}
-	
-	public static void removeRubric(List<Rubric> rubrics){
-		int rubric = findRubric(rubrics);
-        if(rubric!=-1){
-        	rubrics.remove(rubric);
-        	System.out.println("Rubric successfully removed");
-        }
-	}
-	
-	public static void calculateGrade(List<Rubric> rubrics, List<Student> students, List<Assignment> assignments){
-		int student = findStudent(students);
-		int rubric = findRubric(rubrics);  
-        if(student != -1 && rubric != -1 ) {
-        	double grade = rubrics.get(rubric).computeScoreForStudent(students.get(student));
-        	System.out.println(students.get(student).name() + " Has a Grade of: " + grade);
-        }
-	}
     
 	public static void manualMode() {
         int choice = 0;
@@ -221,7 +203,6 @@ public class Driver {
 			System.out.println("6. Remove a Rubric");
 			
 			System.out.println("7. Calculate Grade");
-
 			System.out.println("8. Rank Students by Grade");
 			System.out.println("0. Exit");
 			choice = input.nextInt();
