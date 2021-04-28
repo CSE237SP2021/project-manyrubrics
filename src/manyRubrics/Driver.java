@@ -82,7 +82,7 @@ public class Driver {
 
 		System.out.println("Student Name to Add: ");
 		String name = input.nextLine();
-		input.nextLine();
+		//input.nextLine();
 		Student student = new Student(name, assignments);
 		setScores(student);
 		students.add(student);
@@ -243,7 +243,7 @@ public class Driver {
 			
 		}
 		System.out.println("The order of the ranked students: " + name);
-		
+		System.out.println("");
 	}
 
 	public static void manualMode() {
